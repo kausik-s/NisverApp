@@ -8,5 +8,32 @@ ion-input
 }
 ion-button
 {
-    margin-top: 40px;
+    margin-top: 30px;
 }
+
+
+.masters {
+    --background: linear-gradient(90deg, rgba(190,100,27,1) 40%, rgba(235,175,54,0.9780287114845938) 93%)!important;
+    
+}
+ion-card.masters
+{
+    box-shadow: none;
+    background: rgba(190,100,27,1);
+    border-radius: 10px;
+    z-index: 100;
+}
+.item{
+ background: rgba(190,100,27,1);
+}
+ion-card
+{
+    margin-top: 50px;
+    padding: 20px;
+}
+.forgot
+{
+    margin-top: 5px;
+    float: right;
+}
+

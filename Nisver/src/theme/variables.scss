@@ -227,9 +227,36 @@
   }
 }
 
+
+/*****custom styling******/
 .center
 {
   text-align: center;
+}
+
+ion-toolbar
+{
+  /*
+--background: linear-gradient(90deg, rgba(190,100,27,1) 40%, rgba(235,175,54,0.9780287114845938) 93%);
+*/
+--background: linear-gradient(90deg, rgba(140,96,221,1) 40%, rgba(53,150,181,1) 93%);
+}
+ion-button {
+  
+  
+  --background: linear-gradient(90deg, rgba(140,96,221,1) 40%, rgba(53,150,181,1) 93%);
+ 
+}
+.md {
+  --ion-text-color: rgb(19, 106, 146);
+  --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+}
+
+ion-tab-bar
+{
+  /*
+  --background: linear-gradient(90deg, rgba(140,96,221,1) 40%, rgba(53,150,181,1) 93%);
+  */
 }
 
 
