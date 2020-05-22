@@ -8,12 +8,14 @@ const routes: Routes = [
     path: '',
     component: IndexPage,
     children:[
+      /*
       {
         path:'',
         loadChildren:()=>import('../pages/welcome/welcome.module').then(m=>m.WelcomePageModule)
       },
+      */
       {
-        path:'login',
+        path:'',
         loadChildren:()=>import('../pages/login/login.module').then(m=>m.LoginPageModule)
       },
       {
