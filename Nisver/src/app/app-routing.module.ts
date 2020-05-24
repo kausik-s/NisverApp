@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  }
+  },
   /*,
   {
     path: 'home',
@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'index',
     loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
-  },
+  },*/
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
   },
-  {
+  /*{
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
   }

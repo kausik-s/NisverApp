@@ -1,9 +1,83 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signup</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card id="signUpCard">
+    <ion-card-header class="center">
+      CREATE ACCOUNT
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item id="signUP_firstName">
+        <ion-label position="floating" class="mandatory">First Name</ion-label>
+        <ion-input type="text"> </ion-input>
+      </ion-item>
 
+      <ion-item id="signUP_lastName">
+        <ion-label position="floating" class="mandatory">Last Name</ion-label>
+        <ion-input type="text"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="mandatory">Gender</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="f">Female</ion-select-option>
+          <ion-select-option value="m">Male</ion-select-option>
+          <ion-select-option value="o">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Address line 1</ion-label>
+        <ion-input type="text"> </ion-input>
+      </ion-item>
+
+      <ion-item id="signUp_address2">
+        <ion-label position="stacked">Address line 2</ion-label>
+        <ion-input type="text"> </ion-input>
+      </ion-item>
+
+      <ion-item id="address2_locator">
+        <ion-icon name="locate"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="mandatory"
+          >Mobile Number</ion-label
+        >
+        <ion-input type="tel" maxlength="10"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="mandatory"
+          >Email Address</ion-label
+        >
+        <ion-input type="email"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="mandatory">Profession</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="student">Student</ion-select-option>
+          <ion-select-option value="faculty">Faculty</ion-select-option>
+          <ion-select-option value="otherProfession">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="block">Sign Up</ion-button>
+
+      <ion-item lines="none">
+        <p text-wrap>
+          Already have an account ?&nbsp;&nbsp;<a routerLink="/login"
+            >Sign In</a
+          >
+        </p>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
