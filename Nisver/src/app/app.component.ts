@@ -34,7 +34,39 @@ export class AppComponent {
         title : "Home",
         url   : "/home",
         icon  : "home"
+      },
+      {
+        title : "Profile",
+        url   : "/profile",
+        icon  : "home"
+      },
+      {
+        title : "Change Password",
+        url   : "/changepwd",
+        icon  : "help-circle-outline"
+      },
+      {
+        title : "Feedback",
+        url   : "/feedback",
+        icon  : "trophy-outline"
+      },
+      {
+        title : "Privacy Policy",
+        url   : "/privacypol",
+        icon  : "eye-off-outline"
+      },
+      {
+        title : "Terms and Condition",
+        url   : "/trmsandcond",
+        icon  : "create-outline"
       }
+      ,
+      {
+        title : "Legal",
+        url   : "/legal",
+        icon  : "home"
+      }
+
     ]
   }
 }
