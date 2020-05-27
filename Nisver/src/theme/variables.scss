@@ -258,5 +258,10 @@ ion-tab-bar
   --background: linear-gradient(90deg, rgba(140,96,221,1) 40%, rgba(53,150,181,1) 93%);
   */
 }
+.spinner-class {
+  --background: #222;
+  --spinner-color: #fff;
 
+  color: #fff;
+}
 
