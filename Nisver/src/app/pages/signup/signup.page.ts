@@ -6,6 +6,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { FormControl } from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 import { ElementRef, NgZone,  ViewChild } from '@angular/core';
+import { CommonService } from '../../services/common.service';//common serviec
 
 declare var google;
 @Component({
@@ -31,7 +32,7 @@ export class SignupPage implements OnInit {
  
 
   constructor(public formBuilder: FormBuilder,private http: HttpClient,public loadingController: LoadingController, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,private toastController:ToastController) { }
+    private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService) { }
 
   ngOnInit() {
 
@@ -103,7 +104,7 @@ export class SignupPage implements OnInit {
     this.isSubmitted = true;
     if (!this.ionicForm.valid) {
       console.log('Please provide all the required values!');
-      this.showSuccess("Please provide all the required values");
+      this.commonService.showSuccess("Please provide all the required values");
       this.postData();
       console.log(this.ionicForm.value);
       return false;
@@ -115,7 +116,7 @@ export class SignupPage implements OnInit {
 
   postData()
   {
-    this.showLoader();
+    this.commonService.showLoader();
     var formData: any = new FormData();
 
     formData.append("name", this.ionicForm.get('name').value);
@@ -135,68 +136,28 @@ export class SignupPage implements OnInit {
   
     this.http.post('http://nisver.com/addon/api/registration.php',formData,{responseType: 'json'}).subscribe(
       (response) => {
-        this.hideLoader();
+        this.commonService.hideLoader();
         console.log(response);
         
         if(response['status']==1)
         {
-          this.showSuccess("You have Registered sucessfully");
+          this.commonService.showSuccess("You have Registered sucessfully");
         }
         else
         {
-          this.showError(response['message']);
+          this.commonService.showError(response['message']);
         }
       },
       (error) =>{
         console.log(error);
-        this.showError(error);
+        this.commonService.showError(error);
       } 
     )
   }
 
-  /****show messagre */
+  
 
- async showSuccess(msg)
-  {
-    const toast = await this.toastController.create({
-      message: msg,
-      color:"success",
-      position:'top',
-      duration: 2000
-    });
-    toast.present();
-  }
-
-  async showError(msg)
-  {
-    const toast = await this.toastController.create({
-      message: msg,
-      color:"danger",
-      position:'top',
-      duration: 2000
-    });
-    toast.present();
-  }
-
-
-  /*****show loader */
-  showLoader() {
-    this.loaderToShow = this.loadingController.create({
-      message: 'Please wait..'
-    }).then((res) => {
-      res.present();
-
-      res.onDidDismiss().then((dis) => {
-        console.log('Loading dismissed!');
-      });
-    });
-    
-  }
-
-  hideLoader() {
-      this.loadingController.dismiss();
-  }
-
+  
   get errorControl() {
     return this.ionicForm.controls;
   }
