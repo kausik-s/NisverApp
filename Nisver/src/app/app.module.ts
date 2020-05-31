@@ -9,8 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonService } from './services/common.service';
-
+import { CommonService } from './services/common.service';//common serviec
+import { EnvService } from './services/env.service';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -19,6 +20,8 @@ import { CommonService } from './services/common.service';
     StatusBar,
     SplashScreen,
     CommonService,
+    EnvService,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

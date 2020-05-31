@@ -37,7 +37,7 @@ export class AppComponent {
       },
       {
         title : "Profile",
-        url   : "/profile",
+        url   : "/login",
         icon  : "home"
       },
       {
@@ -52,13 +52,19 @@ export class AppComponent {
       },
       {
         title : "Privacy Policy",
-        url   : "/privacypol",
+        url   : "/privacy",
         icon  : "eye-off-outline"
       },
       {
         title : "Terms and Condition",
         url   : "/trmsandcond",
         icon  : "create-outline"
+      }
+      ,
+      {
+        title : "About Us",
+        url   : "/aboutus",
+        icon  : "people-outline"
       }
       ,
       {
