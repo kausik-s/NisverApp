@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 //import { LoadingController, ToastController } from '@ionic/angular';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-login',
@@ -24,6 +26,10 @@ export class LoginPage implements OnInit {
 
   }
 
+  
+  
+
+
   login() {
     
     this.commonService.showLoader();
@@ -39,6 +45,7 @@ export class LoginPage implements OnInit {
       
       if(response['status']==1)
       {
+        this.setObject("userData",response)
         this.router.navigate(['/home'])
       }
       else
@@ -47,6 +54,13 @@ export class LoginPage implements OnInit {
       }
 
 
+    });
+  }
+
+  async setObject(key,data) {
+    await Storage.set({
+      key: key,
+      value: JSON.stringify(data)
     });
   }
 

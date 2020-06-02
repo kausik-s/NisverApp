@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Feedback</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card id="signUpCard">
+    <ion-card-header class="center">
+      Add Feedback
+    </ion-card-header>
+    <ion-card-content>
+      
+      <form [formGroup]="ionicForm" (ngSubmit)="submitFeedback()" novalidate>
+
+        <ion-item >
+          <!--<ion-label position="floating" class="mandatory">Comments</ion-label>-->
+          <ion-textarea (change)="trackValueChange()" formControlName="comments" placeholder="Enter your Feedback here..."></ion-textarea>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.required">
+          Name is required.
+        </span>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.maxlength">
+          Name should be atleast 4 charecter.
+        </span>
+
+        
+        <ion-button type="submit" expand="block">Send</ion-button>
+
+    
+        
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

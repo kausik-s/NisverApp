@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonService } from './services/common.service';//common serviec
 import { EnvService } from './services/env.service';
 import { AuthService } from './services/auth.service';
+import { ApiService } from './services/api.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -22,6 +23,7 @@ import { AuthService } from './services/auth.service';
     CommonService,
     EnvService,
     AuthService,
+    ApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

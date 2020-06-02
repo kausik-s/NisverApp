@@ -26,7 +26,12 @@ const routes: Routes = [
   {
     path: 'privacy',
     loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./pages/feedback/feedback.module').then( m => m.FeedbackPageModule)
   }
+  
   /*,
   {
     path: 'home',

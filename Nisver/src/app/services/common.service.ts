@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
+
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +52,13 @@ export class CommonService {
 
 hideLoader() {
     this.loadingController.dismiss();
+}
+
+async setObject(key,data) {
+  await Storage.set({
+    key: key,
+    value: JSON.stringify(data)
+  });
 }
 
 
