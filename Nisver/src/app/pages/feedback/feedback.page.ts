@@ -4,6 +4,7 @@ import { CommonService } from '../../services/common.service';//common serviec
 import { Plugins } from '@capacitor/core';
 import { ApiService } from 'src/app/services/api.service';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+
 const { Storage } = Plugins;
 @Component({
   selector: 'app-feedback',
@@ -24,13 +25,11 @@ export class FeedbackPage implements OnInit {
     })
   }
 
-
- 
-
   submitFeedback()
   {
     if (!this.ionicForm.valid)
     {
+      this.commonService.showError("Please provide valid data");
       return;
     }
     this.isSubmitted=true;

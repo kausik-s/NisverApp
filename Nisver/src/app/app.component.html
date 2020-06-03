@@ -6,6 +6,11 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
+     <!--profile image-->
+      <ion-avatar >
+        <img src="../../assets/img/avatar-han.png">
+      </ion-avatar>
+      <!--profile image-->
       <ion-list *ngFor="let pages of navigate">
       <ion-menu-toggle auto-hide="true">
         <ion-item [routerLink]="pages.url" routerDirection="forward">

@@ -22,10 +22,10 @@
           <ion-textarea (change)="trackValueChange()" formControlName="comments" placeholder="Enter your Feedback here..."></ion-textarea>
         </ion-item>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.required">
-          Name is required.
+         Comments cannot be empty.
         </span>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.maxlength">
-          Name should be atleast 4 charecter.
+          Maximum 250 charecter is allowed
         </span>
 
         

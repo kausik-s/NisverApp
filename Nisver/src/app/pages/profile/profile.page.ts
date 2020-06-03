@@ -7,15 +7,20 @@ import { FormControl } from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 import { ElementRef, NgZone,  ViewChild } from '@angular/core';
 import { CommonService } from '../../services/common.service';//common serviec
+import { Plugins } from '@capacitor/core';
+import { ApiService } from 'src/app/services/api.service';
+const { Storage } = Plugins;
 
-declare var google;
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class SignupPage implements OnInit {
-
+export class ProfilePage implements OnInit {
+  file: File;
+  userID:string;
+  disabled:boolean;
+  picToView:string;
   ionicForm: FormGroup;
   loaderToShow: any;
   isSubmitted = false;
@@ -32,14 +37,15 @@ export class SignupPage implements OnInit {
  
 
   constructor(public formBuilder: FormBuilder,private http: HttpClient,public loadingController: LoadingController, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService) { }
+    private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService,private apiservice:ApiService) { }
+
+  
 
   ngOnInit() {
-
+   
     this.ionicForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       mobileNo: ['', [Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(10),Validators.maxLength(10)]],
-      password: ['', [Validators.required,Validators.minLength(4)]],
       altMobileNo:['', [Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(10),Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       category:['', [Validators.required]],
@@ -48,12 +54,27 @@ export class SignupPage implements OnInit {
       gender:['', [Validators.required]],
       currentAddress:['', [Validators.required]],
       autoAddress:['', [Validators.required]]
-      
-      
+  
+        
     })
-
     
-   /******map****/
+
+    this.commonService.getObject("userData").then((result) => {
+      console.log(result); 
+      this.userID=result['userid'];
+      this.picToView=result['user_profile'];
+      this.disabled=true;
+      console.log(result['user_profile']);
+      this.ionicForm.setValue({name:result['user_name'], mobileNo: result['user_mobile'],
+      altMobileNo:result['user_altmobile'],email:result['user_email'],category:result['user_category'],profession:result['user_proffesion'],
+      maritalStatus:result['user_marital_status'],gender:result['user_gender'],currentAddress:result['user_currentaddress'],autoAddress:result['user_autoaddress']});
+    
+
+  } );
+   
+ 
+
+     /******map****/
    //set google maps defaults
    this.zoom = 4;
    this.latitude = 22.5726;
@@ -63,7 +84,7 @@ export class SignupPage implements OnInit {
    this.searchControl = new FormControl();
    
    //set current position
-   this.setCurrentPosition();
+  // this.setCurrentPosition();
    
    //load Places Autocomplete
    this.mapsAPILoader.load().then(() => {
@@ -94,17 +115,14 @@ export class SignupPage implements OnInit {
      });
    });
 
-
-
-   
   }
-  
+
   submitForm() {
     
     this.isSubmitted = true;
     if (!this.ionicForm.valid) {
-      console.log('Please provide all the required values!');
-      this.commonService.showSuccess("Please provide all the required values");
+     
+     // this.commonService.showSuccess("Please provide all the required values");
       this.postData();
       console.log(this.ionicForm.value);
       return false;
@@ -114,13 +132,19 @@ export class SignupPage implements OnInit {
     }
   }
 
+  
+ changeListener($event) : void {
+    this.file = $event.target.files[0];
+  }
+
+
   postData()
   {
     this.commonService.showLoader();
     var formData: any = new FormData();
+ 
     formData.append("name", this.ionicForm.get('name').value);
-    formData.append("mobile", this.ionicForm.get('mobileNo').value);
-    formData.append("password", this.ionicForm.get('password').value);
+    formData.append("userid", this.userID);
     formData.append("alt_mobile", this.ionicForm.get('altMobileNo').value);
     formData.append("email", this.ionicForm.get('email').value);
     formData.append("category", this.ionicForm.get('category').value);
@@ -129,33 +153,31 @@ export class SignupPage implements OnInit {
     formData.append("gender", this.ionicForm.get('gender').value);
     formData.append("currentaddress", this.ionicForm.get('currentAddress').value);
     formData.append("autoaddress", this.ionicForm.get('autoAddress').value);
-    formData.append("latitude", this.latitude);
-    formData.append("longitude", this.longitude);
+    formData.append("Image", this.file);
   
-  
-    this.http.post('http://nisver.com/addon/api/registration.php',formData,{responseType: 'json'}).subscribe(
-      (response) => {
-        this.commonService.hideLoader();
-        console.log(response);
-        
-        if(response['status']==1)
-        {
-          this.commonService.showSuccess("You have Registered sucessfully");
-        }
-        else
-        {
-          this.commonService.showError(response['message']);
-        }
-      },
-      (error) =>{
-        console.log(error);
-        this.commonService.showError(error);
-      } 
-    )
+      this.apiservice.updateProfile(formData).subscribe((response) => {
+      console.log(response);
+      this.commonService.hideLoader();
+      
+      if(response['status']==1)
+      {
+        this.commonService.showSuccess("Profile updated sucessfully");
+      }
+      else
+      {
+        this.commonService.showError(response['message']);
+      }
+
+
+    });
   }
-
   
 
+  
+  enableEditMode()
+  {
+    this.disabled=false;
+  }
   
   get errorControl() {
     return this.ionicForm.controls;
@@ -170,5 +192,12 @@ export class SignupPage implements OnInit {
       });
     }
   }
+
+
+  async getObject(key:string) {
+    const item = await Storage.get({ key: key });
+    return JSON.parse(item.value);
+  }
+
 
 }

@@ -6,24 +6,38 @@ import { HomePage } from './home.page';
 const routes: Routes = [
   {
     path: 'home',
-    component: HomePage
-    
-    /*,
-    children:[
+    component: HomePage,
+    children: [
+
       {
-        path:'',
-        loadChildren:()=>import('../pages/welcome/welcome.module').then(m=>m.WelcomePageModule)
+        path: 'pendingorder',
+        loadChildren: () => import('../pages/pendingorder/pendingorder.module').then( m => m.PendingorderPageModule)
       },
       {
-        path:'login',
-        loadChildren:()=>import('../pages/login/login.module').then(m=>m.LoginPageModule)
+        path: 'vendorsearch',
+        loadChildren: () => import('../pages/vendorsearch/vendorsearch.module').then( m => m.VendorsearchPageModule)
       },
       {
-        path:'signup',
-        loadChildren:()=>import('../pages/signup/signup.module').then(m=>m.SignupPageModule)
+        path: 'orderhistory',
+        loadChildren: () => import('../pages/orderhistory/orderhistory.module').then( m => m.OrderhistoryPageModule)
+      },
+      {
+        path: 'bookinghistory',
+        loadChildren: () => import('../pages/bookinghistory/bookinghistory.module').then( m => m.BookinghistoryPageModule)
+      },
+      {
+        path: '',
+        redirectTo: 'pendingorder',
+        pathMatch: 'full'
       }
     ]
-    */
+    
+    
+  },
+  {
+    path: '',
+    redirectTo: 'pendingorder',
+    pathMatch: 'full'
   }
 ];
 

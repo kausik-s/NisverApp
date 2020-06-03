@@ -54,11 +54,19 @@ hideLoader() {
     this.loadingController.dismiss();
 }
 
+/****storing data in local storage */
+
 async setObject(key,data) {
   await Storage.set({
     key: key,
     value: JSON.stringify(data)
   });
+}
+
+
+async getObject(key:string) {
+  const item = await Storage.get({ key: key });
+  return JSON.parse(item.value);
 }
 
 

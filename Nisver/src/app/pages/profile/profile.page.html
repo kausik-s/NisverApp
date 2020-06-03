@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card id="signUpCard">
+    <ion-card-header class="center">
+      Profile
+    </ion-card-header>
+    <ion-card-content>
+      <ion-avatar class='avatar' >
+        
+        <ion-img [src]="picToView"></ion-img>
+      </ion-avatar>
+      <ion-chip (click)="enableEditMode()"color="secondary">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <ion-label>Edit</ion-label>
+      </ion-chip>
+      <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+
+        <ion-item >
+          <ion-label position="floating" class="mandatory">Name</ion-label>
+          <ion-input [disabled]="disabled" formControlName="name" type="text"> </ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+          Name is required.
+        </span>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+          Name should be atleast 4 charecter.
+        </span>
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Mobile Number</ion-label>
+          <ion-input [disabled]="true" formControlName="mobileNo" type="tel" maxlength="10"> </ion-input>
+        </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobileNo.errors?.minlength">
+          Please enter valid mobile number
+        </span>
+
+       
+       
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
+          Password must be atleast 4 charecter
+        </span>
+        
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Alternate Mobile Number</ion-label>
+          <ion-input [disabled]="disabled" formControlName="altMobileNo" type="tel" maxlength="10"> </ion-input>
+        </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.altMobileNo.errors?.minlength">
+          Please enter valid mobile number
+        </span>
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Email</ion-label>
+          <ion-input [disabled]="disabled" formControlName="email" type="email"> </ion-input>
+        </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+          Please enter valid Email Id
+        </span>
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Category</ion-label>
+          <ion-select [disabled]="disabled" formControlName="category" placeholder="Select One">
+            <ion-select-option value="Student">Customer</ion-select-option>
+            <ion-select-option value="Faculty">Vendor</ion-select-option>
+           
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Skill</ion-label>
+          <ion-select [disabled]="disabled" formControlName="profession" placeholder="Select One">
+            <ion-select-option value="Student">Student</ion-select-option>
+            <ion-select-option value="Faculty">Faculty</ion-select-option>
+            <ion-select-option value="OtherProfession">Other</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label  position="stacked" class="mandatory">Marital Status</ion-label>
+          <ion-select [disabled]="disabled"  formControlName="maritalStatus" placeholder="Select One">
+            <ion-select-option value="SINGLE">Single</ion-select-option>
+            <ion-select-option value="MARRIED">Married</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Gender</ion-label>
+          <ion-select [disabled]="disabled" formControlName="gender" placeholder="Select One">
+            <ion-select-option value="FEMALE">Female</ion-select-option>
+            <ion-select-option value="MALE">Male</ion-select-option>
+            
+          </ion-select>
+        </ion-item>
+        <ion-item >
+          <ion-label position="stacked" class="mandatory">Current Address</ion-label>
+          <ion-input [disabled]="disabled" formControlName="currentAddress" type="text"> </ion-input>
+        </ion-item>
+        
+        
+       
+        <ion-item >
+          <ion-label position="stacked" class="mandatory">Auto Address</ion-label>
+           
+          <ion-input id="txtHome" [disabled]="disabled"  [formControl]="searchControl" formControlName="autoAddress" type="text"> </ion-input>
+        
+        <!--<ion-input id="txtHome" formControlName="autoAddress" type="text"> </ion-input>-->
+        </ion-item>
+
+        <ion-item>
+          <ion-label id="profile_image" color="primary" stacked>Image</ion-label>
+          <ion-input [disabled]="disabled" type="file" accept="image/*" (change)="changeListener($event)" ></ion-input>
+        </ion-item>
+      
+      
+        <ion-button [disabled]="disabled" type="submit" expand="block">Update</ion-button>
+
+  
+        
+      </form>
+      
+      
+    
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

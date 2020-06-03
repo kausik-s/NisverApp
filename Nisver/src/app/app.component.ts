@@ -37,7 +37,7 @@ export class AppComponent {
       },
       {
         title : "Profile",
-        url   : "/login",
+        url   : "/profile",
         icon  : "home"
       },
       {

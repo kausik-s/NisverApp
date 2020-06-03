@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
       
       if(response['status']==1)
       {
-        this.setObject("userData",response)
+        this.commonService.setObject("userData",response)
         this.router.navigate(['/home'])
       }
       else
@@ -57,11 +57,6 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async setObject(key,data) {
-    await Storage.set({
-      key: key,
-      value: JSON.stringify(data)
-    });
-  }
+ 
 
 }

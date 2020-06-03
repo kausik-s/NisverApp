@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+     
+      <ion-card-title>Details</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col><div>Name:</div></ion-col>
+          <ion-col><div>Denzel Washington</div></ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Category:</div></ion-col>
+          <ion-col><div>Doctor</div></ion-col>
+          
+        </ion-row>
+        <ion-row>
+          <ion-col><div>Distance:</div></ion-col>
+          <ion-col><div>1km</div></ion-col>
+          
+        </ion-row>
+        <ion-row>
+          <ion-col><div>Date:</div></ion-col>
+          <ion-col><div>30-05-2020</div></ion-col>
+          
+        </ion-row>
+      </ion-grid>
+     
+      <ion-button [disabled]="disabled" type="submit" expand="block">Book</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

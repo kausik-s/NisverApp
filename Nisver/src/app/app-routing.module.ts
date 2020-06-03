@@ -30,8 +30,39 @@ const routes: Routes = [
   {
     path: 'feedback',
     loadChildren: () => import('./pages/feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'home/booking',
+    loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
   }
   
+  /*
+  ,
+
+  {
+    path: 'pendingorder',
+    loadChildren: () => import('./pages/pendingorder/pendingorder.module').then( m => m.PendingorderPageModule)
+  },
+  {
+    path: 'orderhistory',
+    loadChildren: () => import('./pages/orderhistory/orderhistory.module').then( m => m.OrderhistoryPageModule)
+  },
+  {
+    path: 'bookinghistory',
+    loadChildren: () => import('./pages/bookinghistory/bookinghistory.module').then( m => m.BookinghistoryPageModule)
+  }
+  */
+  /*
+  ,
+  {
+    path: 'home/vendorsearch',
+    loadChildren: () => import('./pages/vendorsearch/vendorsearch.module').then( m => m.VendorsearchPageModule)
+  }
+  */
   /*,
   {
     path: 'home',
