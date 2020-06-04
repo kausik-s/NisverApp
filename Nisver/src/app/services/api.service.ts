@@ -78,4 +78,15 @@ handleError(error: HttpErrorResponse) {
   }
 
 
+  //bookOrder
+  bookOrder(item) {
+    return this.http
+      .post(this.env.API_URL+'/order_booking.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+
 }

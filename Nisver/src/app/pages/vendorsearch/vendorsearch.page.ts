@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vendorsearch',
@@ -9,12 +10,13 @@ import { CommonService } from '../../services/common.service';//common serviec
 })
 export class VendorsearchPage implements OnInit {
   categoryList:any
+  vendorData:any
   userID:string
   latitude:string
   longitude:String
   location:String
   categoryId:number
-  constructor(private apiService:ApiService,private commonService:CommonService ) { }
+  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService ) { }
 
   ngOnInit() {
     this.getCategory();
@@ -60,7 +62,10 @@ export class VendorsearchPage implements OnInit {
         
         if(response['status']==1)
         {
+
+          this.vendorData=response['searchList'];
           this.commonService.showSuccess("Retrived data sucessfully");
+          
         }
         else
         {
@@ -70,6 +75,13 @@ export class VendorsearchPage implements OnInit {
   
       });
       
+    }
+
+    viewVendorDetails(item:any)
+    {
+      console.log(JSON.stringify(item));
+      this.commonService.setObject("vendor",item);
+      this.router.navigateByUrl('/home/booking');
     }
 
 

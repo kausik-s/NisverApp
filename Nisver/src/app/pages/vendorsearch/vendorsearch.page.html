@@ -18,18 +18,13 @@
     </ion-select>
   </ion-item>
 <!-----home page content-->
-      <ion-item button (click)="buttonClick()" detail>
+      <ion-item *ngFor="let vendor of vendorData"  (click)="viewVendorDetails(vendor)" detail>
         <ion-list>
-          <!--
-          <ion-list-header>
-            Pending List
-          </ion-list-header>
-          -->
-
+         
   
           <ion-item lines="none">
             <ion-avatar slot="start">
-              <img src="../../assets/img/avatar-han.png">
+              <img src="{{vendor.user_profile}}">
             </ion-avatar>
             
             <ion-label>
@@ -37,23 +32,23 @@
               <ion-grid>
                 <ion-row>
                   <ion-col><div>Name:</div></ion-col>
-                  <ion-col><div>Denzel Washington</div></ion-col>
+                  <ion-col><div>{{vendor.user_name}}</div></ion-col>
                   
                 </ion-row>
 
                 <ion-row>
                   <ion-col><div>Category:</div></ion-col>
-                  <ion-col><div>Doctor</div></ion-col>
+                  <ion-col><div>{{vendor.user_proffesion}}</div></ion-col>
                   
                 </ion-row>
                 <ion-row>
                   <ion-col><div>Distance:</div></ion-col>
-                  <ion-col><div>1km</div></ion-col>
+                  <ion-col><div>{{vendor.user_distance}}</div></ion-col>
                   
                 </ion-row>
                 <ion-row>
                   <ion-col><div>Date:</div></ion-col>
-                  <ion-col><div>30-05-2020</div></ion-col>
+                  <ion-col><div>{{vendor.user_addedon}}</div></ion-col>
                   
                 </ion-row>
               </ion-grid>
@@ -66,51 +61,7 @@
       </ion-item>
 
 
-      <ion-item button (click)="buttonClick()" detail>
-        <ion-list>
-          <!--
-          <ion-list-header>
-            Pending List
-          </ion-list-header>
-          -->
-  
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <img src="../../assets/img/avatar-han.png">
-            </ion-avatar>
-            
-            <ion-label>
-              
-              <ion-grid>
-                <ion-row>
-                  <ion-col><div>Name:</div></ion-col>
-                  <ion-col><div>Denzel Washington</div></ion-col>
-                  
-                </ion-row>
-
-                <ion-row>
-                  <ion-col><div>Category:</div></ion-col>
-                  <ion-col><div>Doctor</div></ion-col>
-                  
-                </ion-row>
-                <ion-row>
-                  <ion-col><div>Distance:</div></ion-col>
-                  <ion-col><div>1km</div></ion-col>
-                  
-                </ion-row>
-                <ion-row>
-                  <ion-col><div>Date:</div></ion-col>
-                  <ion-col><div>30-05-2020</div></ion-col>
-                  
-                </ion-row>
-              </ion-grid>
-             
-            </ion-label>
-          </ion-item>
-
-        </ion-list>
-
-      </ion-item>
+      
 
 <!----page content-->
 
