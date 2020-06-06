@@ -89,4 +89,53 @@ handleError(error: HttpErrorResponse) {
   }
 
 
+  //getOrders
+  getOrdersList(item) {
+    return this.http
+      .post(this.env.API_URL+'/order_history_listing.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  //acceptOrRejectOrder
+  acceptOrRejectOrder(item) {
+    return this.http
+      .post(this.env.API_URL+'/order_accept_reject.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  
+//For Admin
+    //Feedback List
+    getfeedbackList(item) {
+      return this.http
+        .post(this.env.API_URL+'/feedback_list.php', item, {})
+        .pipe(
+          retry(0),
+          catchError(this.handleError)
+        )
+    }
+  //Customer List
+  getCustomerList(item) {
+    return this.http
+      .post(this.env.API_URL+'/admin_customer_vender_list.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+  //BlockUnblock User
+  setBlockUnblock(item) {
+    return this.http
+      .post(this.env.API_URL+'/admin_customer_vendor_block_unblock.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
 }

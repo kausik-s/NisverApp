@@ -1,9 +1,86 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pendingorder</ion-title>
+    <ion-title>Pending Orders</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-card *ngFor="let order of orderList"  color="primary" class="background"> 
+
+    <ion-item lines="none">
+   
+      <ion-label>
+        
+        <ion-grid>
+          <ion-row>
+            <ion-col class="startColwidth" ></ion-col>
+            <ion-col><div>Customer Name:</div></ion-col>
+            <ion-col><div>{{order.sender_name}}</div></ion-col>
+            <ion-col class="endcolwidth" ></ion-col>
+          </ion-row>
+ 
+          <ion-row >
+            <ion-col class="startColwidth" ></ion-col>
+            <ion-col><div>Order Category:</div></ion-col>
+            <ion-col><div>{{order.receiver_category_name}}</div></ion-col>
+            <ion-col class="endcolwidth" ></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="startColwidth"></ion-col>
+            <ion-col><div>Order Status:</div></ion-col>
+            <ion-col><div>{{order.order_status}}</div></ion-col>
+            <ion-col class="endcolwidth" ></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="startColwidth"></ion-col>
+            <ion-col ><div>Order Date:</div></ion-col>
+            <ion-col><div>{{order.order_created_date}}</div></ion-col>
+            <ion-col class="endcolwidth" ></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="startColwidth"></ion-col>
+            <ion-col ><div>Comments:</div></ion-col>
+            <ion-col><div>{{order.orders_comments}}</div></ion-col>
+            <ion-col class="endcolwidth" ></ion-col>
+          </ion-row>
+
+          
+        </ion-grid>
+
+        
+        <ion-grid>
+         
+          <ion-row class="action">
+            <ion-col ></ion-col>
+            <ion-col >
+            <ion-chip (click)="acceptOrder(order)" color="success">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <ion-label>Accept</ion-label>
+            </ion-chip>
+          </ion-col>
+            <ion-col>
+              <ion-chip (click)="rejectOrder(order)" color="danger">
+                <ion-icon name="close"></ion-icon>
+                <ion-label>Reject</ion-label>
+              </ion-chip>
+  
+            </ion-col>
+            <ion-col ></ion-col>
+          </ion-row>
+
+        </ion-grid>
+       
+      
+      </ion-label>
+    </ion-item>
+
+    
+  </ion-card>
+
+
 
 </ion-content>

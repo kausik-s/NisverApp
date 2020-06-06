@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   navigate : any;
+  navigateAdmin:any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -18,6 +19,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.sideMenu();
+    this.adminMenu();
   }
 
   initializeApp() {
@@ -26,6 +28,21 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+
+  /***** sideMenu for user menu and adminMenu for Admin
+   * 
+   * for usiing menu import import
+   * { MenuController } from '@ionic/angular';
+   * in *.page.ts file
+   * pass menu cotroller in Construter like : private menu: MenuController 
+   * inside controller write 
+   * 
+   *  this.menu.enable(true, 'admin');  for admin menu
+   *  this.menu.enable(true, 'first');  for user menu
+   * 
+   * 
+   */
   sideMenu()
   {
     this.navigate =
@@ -42,7 +59,7 @@ export class AppComponent {
       },
       {
         title : "Change Password",
-        url   : "/changepwd",
+        url   : "/changepassword",
         icon  : "help-circle-outline"
       },
       {
@@ -68,9 +85,59 @@ export class AppComponent {
       }
       ,
       {
-        title : "Legal",
+        title : "Log Out",
         url   : "/legal",
+        icon  : "log-out-outline"
+      }
+
+    ]
+  }
+
+  adminMenu()
+  {
+    this.navigateAdmin =
+    [
+      {
+        title : "Home",
+        url   : "/home",
         icon  : "home"
+      },
+      {
+        title : "Profile",
+        url   : "/profile",
+        icon  : "home"
+      },
+      {
+        title : "Change Password",
+        url   : "/changepassword",
+        icon  : "help-circle-outline"
+      },
+      {
+        title : "Feedback",
+        url   : "/feedback",
+        icon  : "trophy-outline"
+      },
+      {
+        title : "Privacy Policy",
+        url   : "/privacy",
+        icon  : "eye-off-outline"
+      },
+      {
+        title : "Terms and Condition",
+        url   : "/trmsandcond",
+        icon  : "create-outline"
+      }
+      ,
+      {
+        title : "About Us admin",
+        url   : "/aboutus",
+        icon  : "people-outline"
+      }
+      ,
+      {
+        title : "Log Out",
+        url   : "/legal",
+        icon  : "log-out-outline"
       }
 
     ]

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
+import {SessionStorageService} from '../../model/session-storage.service';
 const { Storage } = Plugins;
 
 @Component({
@@ -14,13 +15,14 @@ const { Storage } = Plugins;
 })
 export class LoginPage implements OnInit {
   ionicForm: FormGroup;
-  constructor(private router: Router,private authService:AuthService,public formBuilder: FormBuilder,private commonService:CommonService) { }
+  constructor(private router: Router,private authService:AuthService,public formBuilder: FormBuilder,
+    private commonService:CommonService,private sessionstorage:SessionStorageService) { }
 
   ngOnInit() {
      
     this.ionicForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required,Validators.minLength(4)]]
+      username: ['', [Validators.required, Validators.minLength(1)]],
+      password: ['', [Validators.required,Validators.minLength(1)]]
   
     })
 
@@ -32,12 +34,26 @@ export class LoginPage implements OnInit {
 
   login() {
     
-    this.commonService.showLoader();
-    var formData: any = new FormData();
-
-    formData.append("mobile", this.ionicForm.get('username').value);
-    formData.append("password", this.ionicForm.get('password').value);
-    formData.append("token","xxxxxxxxxxx");
+   
+     if(!this.ionicForm.get('username').value)
+     {
+      this.commonService.showError("Please enter your username to proceed");
+      return;
+     }
+     
+     if(!this.ionicForm.get('password').value)
+     {
+      this.commonService.showError("Please enter your password to proceed");
+      return;
+     }
+   
+     this.commonService.showLoader();
+     var formData: any = new FormData();
+ 
+     formData.append("mobile", this.ionicForm.get('username').value);
+     formData.append("password", this.ionicForm.get('password').value);
+     formData.append("token","xxxxxxxxxxx");
+     
 
     this.authService.login(formData).subscribe((response) => {
       console.log(response);
@@ -46,7 +62,13 @@ export class LoginPage implements OnInit {
       if(response['status']==1)
       {
         this.commonService.setObject("userData",response)
-        this.router.navigate(['/home'])
+        this.sessionstorage.setData("userId",response['userid']);
+
+        if(response['user_type']=="ADMIN"){
+          this.router.navigate(['/dashboard'])
+        }else{
+          this.router.navigate(['/home'])
+        }
       }
       else
       {

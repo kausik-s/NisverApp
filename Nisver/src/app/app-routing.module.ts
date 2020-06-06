@@ -38,6 +38,42 @@ const routes: Routes = [
   {
     path: 'home/booking',
     loadChildren: () => import('./pages/booking/booking.module').then( m => m.BookingPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./admin/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'adminhome',
+    loadChildren: () => import('./admin/adminhome/adminhome.module').then( m => m.AdminhomePageModule)
+  },
+  {
+    path: 'custtab',
+    loadChildren: () => import('./admin/custtab/custtab.module').then( m => m.CusttabPageModule)
+  },
+  {
+    path: 'feedbacktab',
+    loadChildren: () => import('./admin/feedbacktab/feedbacktab.module').then( m => m.FeedbacktabPageModule)
+  },
+  {
+    path: 'custdetails',
+    loadChildren: () => import('./admin/custdetails/custdetails.module').then( m => m.CustdetailsPageModule)
+  },
+  {
+    path: 'forgotpassword',
+    loadChildren: () => import('./pages/forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
+  },
+  {
+    path: 'forgotpassvlidateotp',
+    loadChildren: () => import('./pages/forgotpassvlidateotp/forgotpassvlidateotp.module').then( m => m.ForgotpassvlidateotpPageModule)
+  },
+  {
+    path: 'resetpassword',
+    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
+  },
+  {
+    path: 'changepassword',
+    loadChildren: () => import('./pages/changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
   }
   
   /*

@@ -26,10 +26,12 @@ export class BookingPage implements OnInit {
   user_distance:string
   user_addedon:string
   user_currentaddress:string
+  user_marital_status:string
+  hidemobile:boolean
   constructor(private router:Router,private location:Location,private commonService:CommonService,
     private apiService:ApiService) {
     this.commonService.getObject("vendor").then((result) => {
-      console.log("vendor data"+JSON.stringify(result)); 
+      //console.log("vendor data"+JSON.stringify(result)); 
       //this.vendorData=result;
       this.profileImg=result['user_profile'];
       this.name=result['user_name'];
@@ -41,9 +43,12 @@ export class BookingPage implements OnInit {
       this.user_distance=result['user_distance'];
       this.user_addedon=result['user_addedon'];
       this.user_currentaddress=result['user_currentaddress']
-      this.vendorid=result['userid']
-
-  
+      this.vendorid=result['customerid']
+      this.user_marital_status=result['user_marital_status']
+      
+      //HIDE MOBILE FOR FEMALE AND UNMARRIED VENDOR
+      if(this.user_gender=='FEMALE'&&this.user_marital_status=='UNMARRIED')
+       this.hidemobile=true;
    
   });
   }

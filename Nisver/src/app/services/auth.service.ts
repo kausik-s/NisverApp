@@ -91,5 +91,49 @@ fecthPrivacyPolicyContent(item) {
     )
 }
 
+
+//forgot password
+forgotpassword(item) {
+  return this.http
+    .post(this.env.API_URL+'/forget_password.php', item, {})
+    .pipe(
+      retry(0),
+      catchError(this.handleError)
+    )
+}
+
+//validateForgotPasswordOTP
+validateForgotPasswordOTP(item) {
+  return this.http
+    .post(this.env.API_URL+'/forget_password_otp.php', item, {})
+    .pipe(
+      retry(0),
+      catchError(this.handleError)
+    )
+}
+
+//resetPassword
+resetPassword(item) {
+  return this.http
+    .post(this.env.API_URL+'/reset_password.php', item, {})
+    .pipe(
+      retry(0),
+      catchError(this.handleError)
+    )
+}
+
+
+//changePassword
+changePassword(item) {
+  return this.http
+    .post(this.env.API_URL+'/change_password.php', item, {})
+    .pipe(
+      retry(0),
+      catchError(this.handleError)
+    )
+}
+
+
+
  
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-vendorsearch',
@@ -16,7 +17,10 @@ export class VendorsearchPage implements OnInit {
   longitude:String
   location:String
   categoryId:number
-  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService ) { }
+  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService,private menu: MenuController ) { 
+  this.menu.enable(true, 'start');
+    
+  }
 
   ngOnInit() {
     this.getCategory();
@@ -27,7 +31,6 @@ export class VendorsearchPage implements OnInit {
       this.longitude=result['user_longitude'];
       this.location=result['user_currentaddress'];
     
-
   } );
   }
 
