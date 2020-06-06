@@ -1,0 +1,7 @@
+{
+  "name": "Nisver",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="custtab"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Customer Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-content>
+
+      <ion-avatar class='avatar' >
+          <ion-img [src]="user_profile"></ion-img>
+      </ion-avatar>
+      
+      
+
+      <ion-grid>
+        <ion-row>
+          <ion-col><div>User ID:</div></ion-col>
+          <ion-col><div>{{displayid}}</div></ion-col>
+          
+        </ion-row>
+        <ion-row>
+          <ion-col><div>Name:</div></ion-col>
+          <ion-col><div>{{name}}</div></ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Mobile:</div></ion-col> 
+          <ion-col ><div>{{user_mobile}}</div></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Email:</div></ion-col>
+          <ion-col><div>{{user_email}}</div></ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Gender:</div></ion-col>
+          <ion-col><div>{{user_gender}}</div></ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Alternate Mobile:</div></ion-col>
+          <ion-col><div>{{user_altmobile}}</div></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Category:</div></ion-col>
+          <ion-col><div>{{user_category}}</div></ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Matital Status:</div></ion-col>
+          <ion-col><div>{{user_marital_status}}</div></ion-col>
+          
+        </ion-row>
+        <ion-row>
+          <ion-col><div>Auto Address:</div></ion-col>
+          <ion-col><div>{{user_autoaddress}}</div></ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col><div>Current Address:</div></ion-col>
+          <ion-col><div>{{user_currentaddress}}</div></ion-col>
+          
+        </ion-row>
+        <ion-row>
+          <ion-col><div>User Create Date:</div></ion-col>
+          <ion-col><div>{{user_addedon}}</div></ion-col>
+          
+        </ion-row>
+      </ion-grid>
+    <ion-button (click)="submitBlock()" type="button" expand="block">Block</ion-button>
+      <ion-button (click)="submitUnblock()" type="button" expand="block">UnBlock</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

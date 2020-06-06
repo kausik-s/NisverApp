@@ -1,0 +1,30 @@
+#signUpCard{
+    width: 84%;
+    margin-left: 8%;
+    padding: 2%;
+    margin-top: 5%;
+}
+ion-toolbar{
+    color: white;
+}
+#signUP_firstName{
+    width: 45%;
+    display: inline-block;
+}
+#signUP_lastName{
+    width: 45%;
+    display: inline-block;
+    float: right;
+}
+#signUp_address2{
+    width: 95%;
+    display: inline-block;
+}
+#address2_locator{
+    width: 4%;
+    display: inline-block;
+}
+.mandatory:after {
+    content:" *";
+    color: red;
+  }
