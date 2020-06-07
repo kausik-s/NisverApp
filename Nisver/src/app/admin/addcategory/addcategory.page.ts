@@ -24,7 +24,7 @@ export class AddcategoryPage implements OnInit {
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
-      comments: ['', [Validators.required, Validators.maxLength(50)]]
+      catname: ['', [Validators.required, Validators.maxLength(50)]]
      
     })
   }
