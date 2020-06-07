@@ -147,7 +147,7 @@ handleError(error: HttpErrorResponse) {
         catchError(this.handleError)
       )
   }
- //BlockUnblock User
+ //displayTermsAndCondition User
   displayTermsAndCondition(item) {
     return this.http
       .post(this.env.API_URL+'/term_condition.php', item, {})
@@ -158,7 +158,7 @@ handleError(error: HttpErrorResponse) {
   } 
 
 
-   //BlockUnblock User
+   //fetchBookingList User
    fetchBookingList(item) {
     return this.http
       .post(this.env.API_URL+'/order_booking_listing.php', item, {})

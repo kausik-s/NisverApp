@@ -12,7 +12,6 @@ import {SessionStorageService} from '../../model/session-storage.service';
 import { google } from "google-maps";
 import { ApiService } from 'src/app/services/api.service';
 
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -144,8 +143,8 @@ export class SignupPage implements OnInit {
         
         if(response['status']==1)
         {
-          this.commonService.showSuccess("You have Registered sucessfully");
-          this.sessionStorage.setData("mobile",this.ionicForm.get('mobileNo').value);
+          this.commonService.showSuccess(response['message']);
+ 		  this.sessionStorage.setData("mobile",this.ionicForm.get('mobileNo').value);
           this.router.navigate(['/validateregotp'])
         }
         else

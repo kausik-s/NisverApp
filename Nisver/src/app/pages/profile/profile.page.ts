@@ -11,6 +11,10 @@ import { Plugins } from '@capacitor/core';
 import { ApiService } from '../../services/api.service';
 const { Storage } = Plugins;
 import { Router } from '@angular/router';
+//import {} from '@types/googlemaps';
+//import { } from 'googlemaps';
+import { google } from "google-maps";
+
 
 @Component({
   selector: 'app-profile',

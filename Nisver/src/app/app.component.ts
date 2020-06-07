@@ -82,8 +82,7 @@ export class AppComponent {
         title : "About Us",
         url   : "/aboutus",
         icon  : "people-outline"
-      }
-      ,
+      },
       {
         title : "Log Out",
         url   : "/",
