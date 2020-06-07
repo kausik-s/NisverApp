@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('../feedbacktab/feedbacktab.module').then( m => m.FeedbacktabPageModule)
       },
       {
+        path: 'orderhistab',
+        loadChildren: () => import('../orderhistab/orderhistab.module').then( m => m.OrderhistabPageModule)
+      },
+      {
         path: '',
         redirectTo: 'adminhome',
         pathMatch: 'full'

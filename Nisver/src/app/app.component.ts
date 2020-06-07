@@ -99,13 +99,13 @@ export class AppComponent {
     [
       {
         title : "Home",
-        url   : "/home",
+        url   : "/dashboard",
         icon  : "home"
       },
       {
         title : "Profile",
         url   : "/profile",
-        icon  : "home"
+        icon  : "person-outline"
       },
       {
         title : "Change Password",
@@ -129,7 +129,7 @@ export class AppComponent {
       }
       ,
       {
-        title : "About Us admin",
+        title : "About Us",
         url   : "/aboutus",
         icon  : "people-outline"
       }

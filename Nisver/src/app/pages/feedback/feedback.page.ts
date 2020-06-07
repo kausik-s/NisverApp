@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CommonService } from '../../services/common.service';//common serviec
 import { Plugins } from '@capacitor/core';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+import { Router } from '@angular/router';
 
 const { Storage } = Plugins;
 @Component({
@@ -15,7 +16,7 @@ export class FeedbackPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  constructor(public formBuilder: FormBuilder,private commonService:CommonService,private apiService:ApiService) { }
+  constructor(private router:Router,public formBuilder: FormBuilder,private commonService:CommonService,private apiService:ApiService) { }
 
   ngOnInit() {
 
@@ -45,6 +46,10 @@ export class FeedbackPage implements OnInit {
       if(response['status']==1)
       {
         this.commonService.showSuccess("Feedback submitted successfully");
+        if(localStorage.getItem("user_type")=="ADMIN")
+         this.router.navigate(['/dashboard'])
+         else
+         this.router.navigate(['/home'])
       }
       else
       {

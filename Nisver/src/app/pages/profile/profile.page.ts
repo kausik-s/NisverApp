@@ -8,8 +8,9 @@ import { MapsAPILoader } from '@agm/core';
 import { ElementRef, NgZone,  ViewChild } from '@angular/core';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Plugins } from '@capacitor/core';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../../services/api.service';
 const { Storage } = Plugins;
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +37,7 @@ export class ProfilePage implements OnInit {
   
  
 
-  constructor(public formBuilder: FormBuilder,private http: HttpClient,public loadingController: LoadingController, private mapsAPILoader: MapsAPILoader,
+  constructor(private router:Router,public formBuilder: FormBuilder,private http: HttpClient,public loadingController: LoadingController, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService,private apiservice:ApiService) { }
 
   
@@ -162,6 +163,10 @@ export class ProfilePage implements OnInit {
       if(response['status']==1)
       {
         this.commonService.showSuccess("Profile updated sucessfully");
+        if(localStorage.getItem("user_type")==="ADMIN")
+        this.router.navigate(['/dashboard'])
+        else
+        this.router.navigate(['/home'])
       }
       else
       {

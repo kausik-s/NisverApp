@@ -63,6 +63,8 @@ export class LoginPage implements OnInit {
       {
         this.commonService.setObject("userData",response)
         this.sessionstorage.setData("userId",response['userid']);
+        localStorage.setItem("userId", response['userid']);
+        localStorage.setItem("user_type", response['user_type']);
 
         if(response['user_type']=="ADMIN"){
           this.router.navigate(['/dashboard'])

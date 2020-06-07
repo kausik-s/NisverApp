@@ -61,7 +61,9 @@ export class ChangepasswordPage implements OnInit {
         if(response['status']==1)
         {
           this.commonService.showSuccess("Your password has been changed sucessfully");
-         
+         if(localStorage.getItem("user_type")=="ADMIN")
+         this.router.navigate(['/dashboard'])
+         else
           this.router.navigate(['/home'])
           
         }
