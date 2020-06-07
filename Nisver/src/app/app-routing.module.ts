@@ -74,7 +74,12 @@ const routes: Routes = [
   {
     path: 'changepassword',
     loadChildren: () => import('./pages/changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
+  },
+  {
+    path: 'addcategory',
+    loadChildren: () => import('./admin/addcategory/addcategory.module').then( m => m.AddcategoryPageModule)
   }
+
   
   /*
   ,

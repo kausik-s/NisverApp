@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>addcategory</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card id="signUpCard">
+    <ion-card-header class="center">
+      Add Category
+    </ion-card-header>
+    <ion-card-content>
+      
+      <form [formGroup]="ionicForm" (ngSubmit)="submitFeedback()" novalidate>
+
+        <ion-item >
+          <ion-textarea (change)="trackValueChange()" formControlName="catname" placeholder="Enter the Category here"></ion-textarea>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.required">
+         Field cannot be empty.
+        </span>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.maxlength">
+          Maximum 50 charecter is allowed
+        </span>
+
+        
+        <ion-button type="submit" expand="block">Add Category</ion-button>
+
+    
+        
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

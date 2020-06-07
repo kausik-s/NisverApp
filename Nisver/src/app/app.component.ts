@@ -61,7 +61,7 @@ export class AppComponent {
         title : "Change Password",
         url   : "/changepassword",
         icon  : "help-circle-outline"
-      },
+      },  
       {
         title : "Feedback",
         url   : "/feedback",
@@ -82,11 +82,10 @@ export class AppComponent {
         title : "About Us",
         url   : "/aboutus",
         icon  : "people-outline"
-      }
-      ,
+      },
       {
         title : "Log Out",
-        url   : "/legal",
+        url   : "/",
         icon  : "log-out-outline"
       }
 
@@ -116,6 +115,10 @@ export class AppComponent {
         title : "Feedback",
         url   : "/feedback",
         icon  : "trophy-outline"
+      },{
+        title : "Add Category",
+        url   : "/addcategory",
+        icon  : "people-outline"
       },
       {
         title : "Privacy Policy",
@@ -136,7 +139,7 @@ export class AppComponent {
       ,
       {
         title : "Log Out",
-        url   : "/legal",
+        url   : "/",
         icon  : "log-out-outline"
       }
 

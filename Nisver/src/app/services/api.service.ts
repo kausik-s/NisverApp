@@ -138,4 +138,14 @@ handleError(error: HttpErrorResponse) {
         catchError(this.handleError)
       )
   } 
+  //Category add
+  addCategory(item) {
+    return this.http
+      .post(this.env.API_URL+'/category_add.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
 }
