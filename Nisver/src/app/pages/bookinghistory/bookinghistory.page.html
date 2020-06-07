@@ -1,11 +1,78 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Booking History</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   
-      <ion-title size="large">Booking History</ion-title>
+  <ion-item>
+    <ion-label >Booking Status</ion-label>
+    <ion-select (ionChange)="selectStatus($event)" interface="popover" placeholder="Select One">
+      <ion-select-option  *ngFor="let booking of bookingStatus"   [value]="booking.value">{{booking.key}}</ion-select-option>
+   
+    </ion-select>
+  </ion-item>
+
+
+  <!-----home page content-->
+  <ion-item *ngFor="let booking of bookingList" >
+    <ion-list>
+     
+
+      <ion-item lines="none">
+
+        
+        <ion-avatar slot="start">
+          <img src="{{booking.sender_user_profile}}">
+        </ion-avatar>
+        
+        <ion-label>
+          
+          <ion-grid>
+            <ion-row>
+              <ion-col><div>Vendor Name:</div></ion-col>
+              <ion-col><div>{{booking.reciever_name}}</div></ion-col>
+              
+            </ion-row>
+
+            <ion-row>
+              <ion-col><div>Booking Category:</div></ion-col>
+              <ion-col><div>{{booking.receiver_category_name}}</div></ion-col>
+              
+            </ion-row>
+            <ion-row>
+              <ion-col><div>Booking Status:</div></ion-col>
+              <ion-col><div>{{booking.order_status}}</div></ion-col>
+              
+            </ion-row>
+            <ion-row>
+              <ion-col><div>Booking Date:</div></ion-col>
+              <ion-col><div>{{booking.order_created_date}}</div></ion-col>
+              
+            </ion-row>
+            <!--
+            <ion-row>
+              <ion-col><div>Comments:</div></ion-col>
+              <ion-col><div>{{booking.orders_comments}}</div></ion-col>
+              
+            </ion-row>
+            -->
+          </ion-grid>
+        
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+  </ion-item>
+
+
+  
+
+<!----page content-->
   
 </ion-content>

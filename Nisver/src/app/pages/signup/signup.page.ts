@@ -7,15 +7,19 @@ import { FormControl } from "@angular/forms";
 import { MapsAPILoader } from '@agm/core';
 import { ElementRef, NgZone,  ViewChild } from '@angular/core';
 import { CommonService } from '../../services/common.service';//common serviec
+import { Router } from '@angular/router';
+import {SessionStorageService} from '../../model/session-storage.service';
+import { google } from "google-maps";
+import { ApiService } from 'src/app/services/api.service';
 
-declare var google;
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-
+  categoryList:any
   ionicForm: FormGroup;
   loaderToShow: any;
   isSubmitted = false;
@@ -32,10 +36,10 @@ export class SignupPage implements OnInit {
  
 
   constructor(public formBuilder: FormBuilder,private http: HttpClient,public loadingController: LoadingController, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService) { }
+    private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService,private router:Router,private sessionStorage:SessionStorageService,private apiservice:ApiService) { }
 
   ngOnInit() {
-
+    this.getCategory();
     this.ionicForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       mobileNo: ['', [Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(10),Validators.maxLength(10)]],
@@ -141,6 +145,8 @@ export class SignupPage implements OnInit {
         if(response['status']==1)
         {
           this.commonService.showSuccess("You have Registered sucessfully");
+          this.sessionStorage.setData("mobile",this.ionicForm.get('mobileNo').value);
+          this.router.navigate(['/validateregotp'])
         }
         else
         {
@@ -169,6 +175,14 @@ export class SignupPage implements OnInit {
         this.zoom = 12;
       });
     }
+  }
+
+  getCategory()
+  {
+    this.apiservice.getCategoryList(null).subscribe((response) => {
+     console.log(response);
+     this.categoryList=response['CategoryList'];
+    });
   }
 
 }

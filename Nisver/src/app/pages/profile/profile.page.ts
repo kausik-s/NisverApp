@@ -25,6 +25,7 @@ export class ProfilePage implements OnInit {
   ionicForm: FormGroup;
   loaderToShow: any;
   isSubmitted = false;
+  categoryList:any
   /****geo location */
   public latitude: number;
   public longitude: number;
@@ -44,6 +45,8 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
    
+    
+    this.getCategory()
     this.ionicForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       mobileNo: ['', [Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(10),Validators.maxLength(10)]],
@@ -204,5 +207,12 @@ export class ProfilePage implements OnInit {
     return JSON.parse(item.value);
   }
 
+  getCategory()
+  {
+    this.apiservice.getCategoryList(null).subscribe((response) => {
+     console.log(response);
+     this.categoryList=response['CategoryList'];
+    });
+  }
 
 }

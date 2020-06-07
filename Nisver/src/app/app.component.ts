@@ -61,7 +61,7 @@ export class AppComponent {
         title : "Change Password",
         url   : "/changepassword",
         icon  : "help-circle-outline"
-      },  
+      },
       {
         title : "Feedback",
         url   : "/feedback",
@@ -74,7 +74,7 @@ export class AppComponent {
       },
       {
         title : "Terms and Condition",
-        url   : "/trmsandcond",
+        url   : "/termsandcondition",
         icon  : "create-outline"
       }
       ,
@@ -82,7 +82,8 @@ export class AppComponent {
         title : "About Us",
         url   : "/aboutus",
         icon  : "people-outline"
-      },
+      }
+      ,
       {
         title : "Log Out",
         url   : "/",
@@ -127,7 +128,7 @@ export class AppComponent {
       },
       {
         title : "Terms and Condition",
-        url   : "/trmsandcond",
+        url   : "/termsandcondition",
         icon  : "create-outline"
       }
       ,

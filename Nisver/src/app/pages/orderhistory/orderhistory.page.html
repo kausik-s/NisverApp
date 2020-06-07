@@ -1,9 +1,76 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>orderhistory</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Order History</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label >Order Status</ion-label>
+    <ion-select (ionChange)="selectStatus($event)" interface="popover" placeholder="Select One">
+      <ion-select-option  *ngFor="let order of orderStatus"   [value]="order.value">{{order.key}}</ion-select-option>
+   
+    </ion-select>
+  </ion-item>
+
+
+  <!-----home page content-->
+  <ion-item *ngFor="let order of orderList" >
+    <ion-list>
+     
+
+      <ion-item lines="none">
+
+        <!--
+        <ion-avatar slot="start">
+          <img src="{{vendor.user_profile}}">
+        </ion-avatar>
+        -->
+        <ion-label>
+          
+          <ion-grid>
+            <ion-row>
+              <ion-col><div>Customer Name:</div></ion-col>
+              <ion-col><div>{{order.sender_name}}</div></ion-col>
+              
+            </ion-row>
+
+            <ion-row>
+              <ion-col><div>Order Category:</div></ion-col>
+              <ion-col><div>{{order.receiver_category_name}}</div></ion-col>
+              
+            </ion-row>
+            <ion-row>
+              <ion-col><div>Order Status:</div></ion-col>
+              <ion-col><div>{{order.order_status}}</div></ion-col>
+              
+            </ion-row>
+            <ion-row>
+              <ion-col><div>Order Date:</div></ion-col>
+              <ion-col><div>{{order.order_created_date}}</div></ion-col>
+              
+            </ion-row>
+
+            <ion-row>
+              <ion-col><div>Comments:</div></ion-col>
+              <ion-col><div>{{order.orders_comments}}</div></ion-col>
+              
+            </ion-row>
+          </ion-grid>
+        
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+  </ion-item>
+
+
+  
+
+<!----page content-->
 
 </ion-content>

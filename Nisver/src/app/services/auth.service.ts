@@ -133,6 +133,15 @@ changePassword(item) {
     )
 }
 
+//validateRegOtp
+validateRegOtp(item) {
+  return this.http
+    .post(this.env.API_URL+'/registration_otp.php', item, {})
+    .pipe(
+      retry(0),
+      catchError(this.handleError)
+    )
+}
 
 
  

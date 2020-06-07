@@ -79,6 +79,16 @@ const routes: Routes = [
     path: 'addcategory',
     loadChildren: () => import('./admin/addcategory/addcategory.module').then( m => m.AddcategoryPageModule)
   }
+  ,
+  {
+    path: 'termsandcondition',
+    loadChildren: () => import('./pages/termsandcondition/termsandcondition.module').then( m => m.TermsandconditionPageModule)
+  },
+  
+  {
+    path: 'validateregotp',
+    loadChildren: () => import('./pages/validateregotp/validateregotp.module').then( m => m.ValidateregotpPageModule)
+  }
 
   
   /*

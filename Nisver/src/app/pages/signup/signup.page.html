@@ -76,12 +76,18 @@
         <ion-item>
           <ion-label position="stacked" class="mandatory">Profession</ion-label>
           <ion-select formControlName="profession" placeholder="Select One">
+            <ion-select-option  *ngFor="let category of categoryList"   [value]="category.categoryid">{{category.cat_name}}</ion-select-option>
+         
+          </ion-select>
+          <!--
+          <ion-select formControlName="profession" placeholder="Select One">
             <ion-select-option value="Student">Student</ion-select-option>
             <ion-select-option value="Faculty">Faculty</ion-select-option>
             <ion-select-option value="OtherProfession">Other</ion-select-option>
           </ion-select>
+          -->
         </ion-item>
-
+         
         <ion-item>
           <ion-label position="stacked" class="mandatory">Marital Status</ion-label>
           <ion-select  formControlName="maritalStatus" placeholder="Select One">

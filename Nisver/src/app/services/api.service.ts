@@ -147,5 +147,27 @@ handleError(error: HttpErrorResponse) {
         catchError(this.handleError)
       )
   }
+ //BlockUnblock User
+  displayTermsAndCondition(item) {
+    return this.http
+      .post(this.env.API_URL+'/term_condition.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
+
+
+   //BlockUnblock User
+   fetchBookingList(item) {
+    return this.http
+      .post(this.env.API_URL+'/order_booking_listing.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
+
+
 
 }

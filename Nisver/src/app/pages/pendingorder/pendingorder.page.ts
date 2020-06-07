@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pendingorder',
@@ -11,7 +12,10 @@ import { Router } from '@angular/router';
 export class PendingorderPage implements OnInit {
   userID:any
   orderList:any
-  constructor(private apiService:ApiService,private commonService:CommonService,private router:Router ) { }
+  constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController ) { 
+    //this.menu.enable(true, 'start');
+  }
+  
 
   ngOnInit() {
     this.commonService.getObject("userData").then((result) => {
@@ -30,7 +34,7 @@ export class PendingorderPage implements OnInit {
       //formData.append("customerid",this.userID );
       formData.append("customerid","14");
 
-      formData.append("order_status","PENDING");
+      formData.append("status","PENDING");
      this.apiService.getOrdersList(formData).subscribe((response) => {
         console.log(response);
        this.commonService.hideLoader();
