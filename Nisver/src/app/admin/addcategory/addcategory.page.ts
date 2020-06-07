@@ -1,3 +1,5 @@
+
+  
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CommonService } from '../../services/common.service';//common serviec
@@ -5,6 +7,7 @@ import { Plugins } from '@capacitor/core';
 import { ApiService } from '../../services/api.service';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { Router } from '@angular/router';
+import {SessionStorageService} from '../../model/session-storage.service';
 
 @Component({
   selector: 'app-addcategory',
@@ -16,7 +19,7 @@ export class AddcategoryPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  constructor(private router:Router,public formBuilder: FormBuilder,private commonService:CommonService,private apiService:ApiService) { }
+  constructor(private router:Router,public formBuilder: FormBuilder,private commonService:CommonService,private apiService:ApiService,private sessionstorage:SessionStorageService) { }
 
 
   ngOnInit() {
@@ -36,8 +39,8 @@ export class AddcategoryPage implements OnInit {
     this.commonService.showLoader();
     var formData: any = new FormData();
     formData.append("category_name", this.ionicForm.get('catname').value);
-    let userData=this.getObject("userData");
-    formData.append("userid",userData['userid']);
+  
+    formData.append("userid",this.sessionstorage.getData("userId"));
     this.apiService.addCategory(formData).subscribe((response) => {
       console.log(response);
       this.commonService.hideLoader();
@@ -70,9 +73,7 @@ export class AddcategoryPage implements OnInit {
     this.isSubmitted=true;
   }
 
-  async getObject(key:string) {
-    const item = await Storage.get({ key: key });
-    return JSON.parse(item.value);
-  }
+  
 
 }
+
