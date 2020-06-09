@@ -12,6 +12,7 @@ import {SessionStorageService} from '../../model/session-storage.service';
 import { google } from "google-maps";
 import { ApiService } from 'src/app/services/api.service';
 
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',

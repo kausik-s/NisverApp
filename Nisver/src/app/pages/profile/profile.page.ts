@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 //import { } from 'googlemaps';
 import { google } from "google-maps";
 
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
