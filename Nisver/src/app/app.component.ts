@@ -19,7 +19,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.sideMenu();
-    this.adminMenu();
+   this.adminMenu();
   }
 
   initializeApp() {
@@ -82,7 +82,8 @@ export class AppComponent {
         title : "About Us",
         url   : "/aboutus",
         icon  : "people-outline"
-      },
+      }
+      ,
       {
         title : "Log Out",
         url   : "/",

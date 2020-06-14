@@ -53,8 +53,13 @@ export class LoginPage implements OnInit {
      formData.append("mobile", this.ionicForm.get('username').value);
      formData.append("password", this.ionicForm.get('password').value);
      formData.append("token","xxxxxxxxxxx");
-     
-     
+     var creds = 'mobile=' + this.ionicForm.get('username').value+'&password=' + this.ionicForm.get('password').value + 
+     "&token=xxxxxxxxxxx";
+     var data={
+       "mobile":this.ionicForm.get('username').value,
+       "password":this.ionicForm.get('password').value,
+       "token":"xxxxx"
+     }
 
     this.authService.login(formData).subscribe((response) => {
       console.log(response);

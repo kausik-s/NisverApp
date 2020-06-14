@@ -14,7 +14,7 @@ import { SignupPage } from './signup.page';
 @NgModule({
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAn7mYIZlP-jAqfH6xFXqrmRmFaczK0_Ak',
+      apiKey: 'AIzaSyCBZcxdAjjj6MyzxTyeIF8yakEq76NOLe0',
       libraries: ["places"]
     }),
     CommonModule,

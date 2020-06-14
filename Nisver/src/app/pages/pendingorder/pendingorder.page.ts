@@ -13,7 +13,9 @@ export class PendingorderPage implements OnInit {
   userID:any
   orderList:any
   constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController ) { 
-    //this.menu.enable(true, 'start');
+    
+    this.menu.enable(true, 'first');
+    
   }
   
 

@@ -8,6 +8,8 @@
 </ion-header>
 
 <ion-content>
+  <ion-scroll scrollY="true">
+ 
   <ion-card id="signUpCard">
     <ion-card-header class="center">
       CREATE ACCOUNT
@@ -17,7 +19,7 @@
       <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
 
         <ion-item >
-          <ion-label position="floating" class="mandatory">Name</ion-label>
+          <ion-label position="floating" class="mandatory">Full Name</ion-label>
           <ion-input formControlName="name" type="text"> </ion-input>
         </ion-item>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
@@ -31,7 +33,10 @@
           <ion-label position="stacked" class="mandatory">Mobile Number</ion-label>
           <ion-input formControlName="mobileNo" type="tel" maxlength="10"> </ion-input>
         </ion-item>
-
+       
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobileNo.errors?.required">
+          Please enter mobile number
+        </span>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobileNo.errors?.minlength">
           Please enter valid mobile number
         </span>
@@ -40,30 +45,54 @@
           <ion-label position="stacked" class="mandatory">Password</ion-label>
           <ion-input formControlName="password" type="Password" > </ion-input>
         </ion-item>
-       
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+          Please enter password
+        </span>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
           Password must be atleast 4 charecter
+        </span>
+
+
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Re-Password</ion-label>
+          <ion-input formControlName="repassword" type="Password" > </ion-input>
+        </ion-item>
+       
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.repassword.errors?.required">
+          Please retype password
+        </span>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.repassword.errors?.minlength">
+          Re-password must be atleast 4 charecter
         </span>
         
 
         <ion-item>
-          <ion-label position="stacked" class="mandatory">Alternate Mobile Number</ion-label>
+          <ion-label position="stacked" class="mandatory">Alt Mobile</ion-label>
           <ion-input formControlName="altMobileNo" type="tel" maxlength="10"> </ion-input>
         </ion-item>
 
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.altMobileNo.errors?.required">
+          Please enter alteranet mobile number
+        </span>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.altMobileNo.errors?.minlength">
           Please enter valid mobile number
         </span>
 
         <ion-item>
-          <ion-label position="stacked" class="mandatory">Email</ion-label>
+          <ion-label position="stacked" class="mandatory">Email Address</ion-label>
           <ion-input formControlName="email" type="email"> </ion-input>
         </ion-item>
+
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+          Please enter your Email id.
+        </span>
 
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
           Please enter valid Email Id
         </span>
-
+        
+        <!--
         <ion-item>
           <ion-label position="stacked" class="mandatory">Category</ion-label>
           <ion-select formControlName="category" placeholder="Select One">
@@ -72,29 +101,26 @@
            
           </ion-select>
         </ion-item>
+        -->
 
         <ion-item>
-          <ion-label position="stacked" class="mandatory">Profession</ion-label>
-          <ion-select formControlName="profession" placeholder="Select One">
+          <ion-label position="stacked" class="mandatory">Profession (My Skill)</ion-label>
+          <ion-select (ionChange)="selectCategory($event)" formControlName="category" placeholder="Select One">
             <ion-select-option  *ngFor="let category of categoryList"   [value]="category.categoryid">{{category.cat_name}}</ion-select-option>
          
           </ion-select>
-          <!--
-          <ion-select formControlName="profession" placeholder="Select One">
-            <ion-select-option value="Student">Student</ion-select-option>
-            <ion-select-option value="Faculty">Faculty</ion-select-option>
-            <ion-select-option value="OtherProfession">Other</ion-select-option>
-          </ion-select>
-          -->
-        </ion-item>
          
-        <ion-item>
-          <ion-label position="stacked" class="mandatory">Marital Status</ion-label>
-          <ion-select  formControlName="maritalStatus" placeholder="Select One">
-            <ion-select-option value="SINGLE">Single</ion-select-option>
-            <ion-select-option value="MARRIED">Married</ion-select-option>
-          </ion-select>
         </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.category.errors?.required">
+          Please select profession
+        </span>
+
+        <ion-item *ngIf="enableOther">
+          <ion-label position="stacked" class="mandatory">Enter Your Skill</ion-label>
+          <ion-input formControlName="profession" type="email"> </ion-input>
+        </ion-item>
+
 
         <ion-item>
           <ion-label position="stacked" class="mandatory">Gender</ion-label>
@@ -104,24 +130,49 @@
             
           </ion-select>
         </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.gender.errors?.required">
+          Please select gender
+        </span>
+         
+        <ion-item>
+          <ion-label position="stacked" class="mandatory">Marital Status</ion-label>
+          <ion-select  formControlName="maritalStatus" placeholder="Select One">
+            <ion-select-option value="SINGLE">Single</ion-select-option>
+            <ion-select-option value="MARRIED">Married</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.maritalStatus.errors?.required">
+          Please select Marital status
+        </span>
+         
         <ion-item >
           <ion-label position="stacked" class="mandatory">Current Address</ion-label>
-          <ion-input formControlName="currentAddress" type="text"> </ion-input>
-        </ion-item>
-         
-        
-       
-        <ion-item >
-          <ion-label position="stacked" class="mandatory">Auto Address</ion-label>
            
-          <ion-input id="txtHome"   [formControl]="searchControl" formControlName="autoAddress" type="text"> </ion-input>
+          <ion-input id="txtHome" [(ngModel)]="test"  [formControl]="searchControl" formControlName="currentAddress" type="text"> </ion-input>
         
         <!--<ion-input id="txtHome" formControlName="autoAddress" type="text"> </ion-input>-->
         </ion-item>
-      
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.currentAddress.errors?.required">
+          Please type your address
+        </span>
        
+        <ion-item lines="none">
+          <ion-label slot="start" position="stacked" >Find my current location</ion-label>
+
+          <ion-label slot="end" ><ion-icon class="locator" (click)='locate()'name="locate-outline"></ion-icon></ion-label>
+          
+          
+          <!--<ion-input [ng-bind]="autoAddressbyApi" formControlName="autoAddress" type="text"> </ion-input>-->
+        </ion-item>
+
+        <ion-item>
+          <ion-label [innerHtml]='autoAddressbyApi' position="stacked" ></ion-label>
+
+        </ion-item>
         
-       
         <ion-button type="submit" expand="block">Sign Up</ion-button>
 
   
@@ -137,7 +188,7 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-
+</ion-scroll>
  
 
 </ion-content>

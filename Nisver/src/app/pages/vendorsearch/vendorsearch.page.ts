@@ -3,6 +3,9 @@ import { ApiService } from '../../services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { MapsAPILoader } from '@agm/core';
+import { ElementRef, NgZone,  ViewChild } from '@angular/core';
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: 'app-vendorsearch',
@@ -13,12 +16,18 @@ export class VendorsearchPage implements OnInit {
   categoryList:any
   vendorData:any
   userID:string
-  latitude:string
-  longitude:String
   location:String
   categoryId:number
-  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService,private menu: MenuController ) { 
-  this.menu.enable(true, 'start');
+  /****geo location */
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
+  /*****geo location */
+  @ViewChild("search")
+  public searchElementRef: ElementRef;
+  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService,private menu: MenuController,public ngZone: NgZone,private mapsAPILoader: MapsAPILoader ) { 
+  //this.menu.enable(true, 'start');
     
   }
 
@@ -32,6 +41,62 @@ export class VendorsearchPage implements OnInit {
       this.location=result['user_currentaddress'];
     
   } );
+
+    /*******location suggestion*****/
+       
+   /******map****/
+   //set google maps defaults
+   this.zoom = 4;
+   this.latitude = 22.5726;
+   this.longitude = 88.3639;
+   
+   //create search FormControl
+   this.searchControl = new FormControl();
+   
+   //set current position
+   //this.setCurrentPosition();
+   
+   //load Places Autocomplete
+   this.mapsAPILoader.load().then(() => {
+   var nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
+   
+   //var nativeHomeInputBox;
+    /*
+     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+       types: ["address"]
+     });*/
+
+     let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+      types: ["address"]
+    });
+     autocomplete.addListener("place_changed", () => {
+       this.ngZone.run(() => {
+         //get the place result
+         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+ 
+         //verify result
+         if (place.geometry === undefined || place.geometry === null) {
+           return;
+         }
+         this.location=autocomplete.getPlace().formatted_address;
+         console.log("place changed"+this.location);
+        
+         //set latitude, longitude and zoom
+         this.latitude = place.geometry.location.lat();
+         this.longitude = place.geometry.location.lng();
+         this.zoom = 12;
+       });
+     });
+
+       //reverse geo coding
+     
+
+
+
+   });
+
+
+
   }
 
 

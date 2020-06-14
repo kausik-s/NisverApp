@@ -36,12 +36,28 @@ export class AuthService {
   }
   */
  // Http Options
+ /*
  httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'multipart/form-data'
   })
 }
+*/
+httpOptions = {
+  headers: new HttpHeaders({
+    
+  })
+}
 
+headers={
+  headers: {'Content-Type':'text/plain'}
+};
+
+/*
+ headers= new HttpHeaders()
+  .delete('Content-Type');
+  */
+  
 // Handle API errors
 handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
@@ -59,16 +75,40 @@ handleError(error: HttpErrorResponse) {
     'Something bad happened; please try again later.');
 };
 
+/*
+uploadFileToUrl = function(file, title, text, uploadUrl){
+  var payload = new FormData();
+
+  payload.append("title", title);
+  payload.append('text', text);
+  payload.append('file', file);
+
+  return this.$http({
+      url: uploadUrl,
+      method: 'POST',
+      data: payload,
+      //assign content-type as undefined, the browser
+      //will assign the correct boundary for us
+      headers: { 'Content-Type': undefined},
+      //prevents serializing payload.  don't do it.
+      transformRequest: angular.identity
+  });
+}
+*/
 
 //login service call
 login(item): Observable<AuthResponse> {
+
+
   return this.http
-    .post<AuthResponse>(this.env.API_URL+'/login.php', item, {})
+    .post<AuthResponse>(this.env.API_URL+'/login.php', item,{})
     .pipe(
       retry(0),
       catchError(this.handleError)
     )
 }
+
+
 
 
 //fecth about us
@@ -95,7 +135,9 @@ fecthPrivacyPolicyContent(item) {
 //forgot password
 forgotpassword(item) {
   return this.http
-    .post(this.env.API_URL+'/forget_password.php', item, {})
+    .post(this.env.API_URL+'/forget_password.php', item, {
+      headers: {'Content-Type':'application/x-www-form-urlencoded'}
+    })
     .pipe(
       retry(0),
       catchError(this.handleError)

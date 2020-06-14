@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 import {SessionStorageService} from '../../model/session-storage.service';
 import { google } from "google-maps";
 import { ApiService } from 'src/app/services/api.service';
+import { Plugins } from '@capacitor/core';
+
+
+const { Geolocation } = Plugins;
 
 
 @Component({
@@ -23,6 +27,10 @@ export class SignupPage implements OnInit {
   ionicForm: FormGroup;
   loaderToShow: any;
   isSubmitted = false;
+  autoAddressbyApi:any
+  currentAddressApi:any
+  test:any
+  enableOther:boolean
   /****geo location */
   public latitude: number;
   public longitude: number;
@@ -36,26 +44,34 @@ export class SignupPage implements OnInit {
  
 
   constructor(public formBuilder: FormBuilder,private http: HttpClient,public loadingController: LoadingController, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,private toastController:ToastController,private commonService:CommonService,private router:Router,private sessionStorage:SessionStorageService,private apiservice:ApiService) { }
+    public ngZone: NgZone,private toastController:ToastController,private commonService:CommonService,private router:Router,private sessionStorage:SessionStorageService,private apiservice:ApiService) { }
 
   ngOnInit() {
     this.getCategory();
-    this.ionicForm = this.formBuilder.group({
+     this.ionicForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       mobileNo: ['', [Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(10),Validators.maxLength(10)]],
       password: ['', [Validators.required,Validators.minLength(4)]],
+      repassword: ['', [Validators.required,Validators.minLength(4)]],
       altMobileNo:['', [Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(10),Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       category:['', [Validators.required]],
       profession:['', [Validators.required]],
       maritalStatus:['', [Validators.required]],
       gender:['', [Validators.required]],
-      currentAddress:['', [Validators.required]],
-      autoAddress:['', [Validators.required]]
-      
+      currentAddress:['', [Validators.required]]
       
     })
+   
+    /*
+    ,
+      currentAddress:['', [Validators.required]],
+      autoAddress:['', [Validators.required]]
+      */
+    
+    
 
+    this.enableOther=false;
     
    /******map****/
    //set google maps defaults
@@ -72,11 +88,13 @@ export class SignupPage implements OnInit {
    //load Places Autocomplete
    this.mapsAPILoader.load().then(() => {
    var nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
+   
    //var nativeHomeInputBox;
     /*
      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
        types: ["address"]
      });*/
+
      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
       types: ["address"]
     });
@@ -89,13 +107,25 @@ export class SignupPage implements OnInit {
          if (place.geometry === undefined || place.geometry === null) {
            return;
          }
+         this.currentAddressApi=autocomplete.getPlace().formatted_address;
+         console.log("place changed"+this.currentAddressApi);
          
+
          //set latitude, longitude and zoom
          this.latitude = place.geometry.location.lat();
          this.longitude = place.geometry.location.lng();
          this.zoom = 12;
        });
      });
+
+      
+
+
+       //reverse geo coding
+     
+
+
+
    });
 
 
@@ -106,16 +136,58 @@ export class SignupPage implements OnInit {
   submitForm() {
     
     this.isSubmitted = true;
-    if (!this.ionicForm.valid) {
-      console.log('Please provide all the required values!');
-      this.commonService.showSuccess("Please provide all the required values");
-      this.postData();
-      console.log(this.ionicForm.value);
-      return false;
-    } else {
-      console.log(this.ionicForm.value);
+
+
+    if(this.ionicForm.get("name").hasError('required')||this.ionicForm.get("name").hasError('minLength')
+    ||this.ionicForm.get("mobileNo").hasError('required')||this.ionicForm.get("mobileNo").hasError('pattern')
+    ||this.ionicForm.get("mobileNo").hasError('minLength')||this.ionicForm.get("mobileNo").hasError('maxLength')
+    ||this.ionicForm.get("password").hasError('required')||this.ionicForm.get("password").hasError('minLength')
+    ||this.ionicForm.get("repassword").hasError('required')
+    ||this.ionicForm.get("repassword").hasError('minLength')
+    ||this.ionicForm.get("email").hasError('required')
+    ||this.ionicForm.get("email").hasError('pattern')
+    ||this.ionicForm.get("category").hasError('required')
+    ||this.ionicForm.get("maritalStatus").hasError('required') 
+    ||this.ionicForm.get("gender").hasError('required') 
+    )
+    {
+      console.log("form has error");
+      return;
+    }
+    else
+    {
+      //proceed to form submit
+      if(this.ionicForm.get('password').value!==this.ionicForm.get('repassword').value)
+      {
+        this.commonService.showError("Password and Re-password did not match");
+        return;
+      }
+       
+      if(this.ionicForm.get('category').value==1&&this.ionicForm.get('profession').value=='')
+      {
+        this.commonService.showError("Please enter your profession");
+        return;
+      }
+        
+      //proceed to form submmit
       this.postData();
     }
+   
+    /*
+    if (!this.ionicForm.valid) {
+
+      console.log('Please provide all the required values!');
+      console.log(this.test);
+      this.commonService.showSuccess("Please provide all the required values");
+      this.postData();
+      return false;
+
+    } else {
+      console.log(this.ionicForm.value);
+      this.commonService.showSuccess("form is valid");
+     // this.postData();
+    }
+    */
   }
 
   postData()
@@ -131,11 +203,15 @@ export class SignupPage implements OnInit {
     formData.append("profession", this.ionicForm.get('profession').value);
     formData.append("marital_status", this.ionicForm.get('maritalStatus').value);
     formData.append("gender", this.ionicForm.get('gender').value);
-    formData.append("currentaddress", this.ionicForm.get('currentAddress').value);
-    formData.append("autoaddress", this.ionicForm.get('autoAddress').value);
+    formData.append("currentaddress", this.currentAddressApi);
+    formData.append("autoaddress", this.autoAddressbyApi);
     formData.append("latitude", this.latitude);
     formData.append("longitude", this.longitude);
-  
+    
+
+    
+    
+    
   
     this.http.post('http://nisver.com/addon/api/registration.php',formData,{responseType: 'json'}).subscribe(
       (response) => {
@@ -172,9 +248,19 @@ export class SignupPage implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
+        console.log(this.latitude);
+        console.log(this.longitude);
         this.zoom = 12;
       });
     }
+
+    
+  }
+
+  //capacitor current position
+  async getCurrentPosition() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current', coordinates);
   }
 
   getCategory()
@@ -184,5 +270,55 @@ export class SignupPage implements OnInit {
      this.categoryList=response['CategoryList'];
     });
   }
+
+
+    selectCategory($event)
+    {
+      //for condition 1
+      if($event.target.value==1)
+      {
+          this.enableOther=true;
+      }
+      else
+      {
+        this.enableOther=false;
+      }
+       
+    }
+    
+
+    locate()
+    {
+      //this.getCurrentPosition();
+      //reverse geo coding
+      var geocoder = new google.maps.Geocoder;
+      var latlng = {lat: this.latitude, lng:this.longitude};
+      var self = this;
+      geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === 'OK') {
+          if (results[0]) {
+            
+           self.ngZone.run(() => {
+
+              //console.log(results[0].formatted_address);
+              self.autoAddressbyApi=results[0].formatted_address;
+          
+           console.log("address"+self.autoAddressbyApi);
+            
+           });
+          
+
+           
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
+   
+
+    }
+
 
 }

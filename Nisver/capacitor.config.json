@@ -2,7 +2,7 @@
   "appId": "io.ionic.starter",
   "appName": "Nisver",
   "server": {
-    "hostname": "nisver.com",
+    "hostname": "localhost",
     "androidScheme": "http"
 },
   "bundledWebRuntime": false,
