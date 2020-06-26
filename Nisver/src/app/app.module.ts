@@ -18,8 +18,8 @@ import { ApiService } from './services/api.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,BarRatingModule,IonicRatingModule],
-  exports: [IonicRatingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  exports: [],
   providers: [
     StatusBar,
     SplashScreen,
