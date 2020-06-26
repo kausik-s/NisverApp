@@ -88,6 +88,18 @@ const routes: Routes = [
   {
     path: 'validateregotp',
     loadChildren: () => import('./pages/validateregotp/validateregotp.module').then( m => m.ValidateregotpPageModule)
+  },
+  {
+    path: 'home/orderhistdetails',
+    loadChildren: () => import('./pages/orderhistdetails/orderhistdetails.module').then( m => m.OrderhistdetailsPageModule)
+  },
+  {
+    path: 'home/bookinghistdetail',
+    loadChildren: () => import('./pages/bookinghistdetail/bookinghistdetail.module').then( m => m.BookinghistdetailPageModule)
+  },
+  {
+    path: 'home/pendingorderdetail',
+    loadChildren: () => import('./pages/pendingorderdetail/pendingorderdetail.module').then( m => m.PendingorderdetailPageModule)
   }
 
   

@@ -6,6 +6,7 @@ import { MenuController } from '@ionic/angular';
 import { MapsAPILoader } from '@agm/core';
 import { ElementRef, NgZone,  ViewChild } from '@angular/core';
 import { FormControl } from "@angular/forms";
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-vendorsearch',
@@ -18,6 +19,7 @@ export class VendorsearchPage implements OnInit {
   userID:string
   location:String
   categoryId:number
+  
   /****geo location */
   public latitude: number;
   public longitude: number;
@@ -26,19 +28,20 @@ export class VendorsearchPage implements OnInit {
   /*****geo location */
   @ViewChild("search")
   public searchElementRef: ElementRef;
-  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService,private menu: MenuController,public ngZone: NgZone,private mapsAPILoader: MapsAPILoader ) { 
+  constructor(private router:Router,private apiService:ApiService,private commonService:CommonService,private menu: MenuController,public ngZone: NgZone,private mapsAPILoader: MapsAPILoader,private navCtrl: NavController ) { 
   //this.menu.enable(true, 'start');
     
   }
 
   ngOnInit() {
     this.getCategory();
+    this.location='';
     this.commonService.getObject("userData").then((result) => {
       console.log(result); 
       this.userID=result['userid'];
       this.latitude=result['user_latitude'];
       this.longitude=result['user_longitude'];
-      this.location=result['user_currentaddress'];
+      //this.location=result['user_currentaddress'];
     
   } );
 
@@ -112,8 +115,26 @@ export class VendorsearchPage implements OnInit {
     {
        console.log("selection changes"+$event.target.value);
        this.categoryId=$event.target.value;
-       this.displayVendors();
+      
     }
+
+    searchVendor()
+    {
+         
+        if(!this.categoryId)
+        {
+          this.commonService.showError("Please select Profession to proceed");
+          return;
+        }
+        if(this.location=='')
+        {
+          this.commonService.showError("Please select location to proceed");
+          return;
+        }
+
+        this.displayVendors();
+    }
+
     displayVendors()
     {
       this.commonService.showLoader();
@@ -132,7 +153,15 @@ export class VendorsearchPage implements OnInit {
         {
 
           this.vendorData=response['searchList'];
-          this.commonService.showSuccess("Retrived data sucessfully");
+          if(this.vendorData.length==0)
+          {
+            this.commonService.showError("No data found!!!");
+          }
+          else
+          {
+            this.commonService.showSuccess("Retrived data sucessfully");
+          }
+          
           
         }
         else
@@ -149,7 +178,8 @@ export class VendorsearchPage implements OnInit {
     {
       console.log(JSON.stringify(item));
       this.commonService.setObject("vendor",item);
-      this.router.navigateByUrl('/home/booking');
+      //this.router.navigateByUrl('/home/booking');
+      this.navCtrl.navigateRoot('/home/booking');
     }
 
 

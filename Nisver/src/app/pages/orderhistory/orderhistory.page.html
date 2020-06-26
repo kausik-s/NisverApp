@@ -10,7 +10,7 @@
 <ion-content>
   <ion-item>
     <ion-label >Order Status</ion-label>
-    <ion-select (ionChange)="selectStatus($event)" interface="popover" placeholder="Select One">
+    <ion-select value='ALL' (ionChange)="selectStatus($event)" interface="popover" placeholder="Select One">
       <ion-select-option  *ngFor="let order of orderStatus"   [value]="order.value">{{order.key}}</ion-select-option>
    
     </ion-select>
@@ -18,34 +18,36 @@
 
 
   <!-----home page content-->
-  <ion-item *ngFor="let order of orderList" >
+  <ion-item *ngFor="let order of orderList"  (click)="gotoOrderDetail(order)" detail >
     <ion-list>
      
 
       <ion-item lines="none">
 
-        <!--
+        
         <ion-avatar slot="start">
-          <img src="{{vendor.user_profile}}">
+          <img src="{{order.reciever_user_profile}}">
         </ion-avatar>
-        -->
-        <ion-label>
+        
+        <ion-label class='label'>
           
           <ion-grid>
             <ion-row>
-              <ion-col><div>Customer Name:</div></ion-col>
-              <ion-col><div>{{order.sender_name}}</div></ion-col>
+             
+              <ion-col><div class='name'>{{order.sender_name}}</div></ion-col>
               
             </ion-row>
-
+            
+            <!--
             <ion-row>
               <ion-col><div>Order Category:</div></ion-col>
               <ion-col><div>{{order.receiver_category_name}}</div></ion-col>
               
             </ion-row>
+            -->
             <ion-row>
               <ion-col><div>Order Status:</div></ion-col>
-              <ion-col><div>{{order.order_status}}</div></ion-col>
+              <ion-col><div>{{order.order_status_new}}</div></ion-col>
               
             </ion-row>
             <ion-row>
@@ -53,12 +55,14 @@
               <ion-col><div>{{order.order_created_date}}</div></ion-col>
               
             </ion-row>
-
+            
+            <!--
             <ion-row>
               <ion-col><div>Comments:</div></ion-col>
               <ion-col><div>{{order.orders_comments}}</div></ion-col>
               
             </ion-row>
+            -->
           </ion-grid>
         
         </ion-label>

@@ -1,0 +1,60 @@
+.avatar{
+    margin: auto;
+ }
+
+ ion-img
+ {
+    width: 90px;
+    height: 90px;
+    display: block;
+    margin: 0 auto;
+ }
+
+ .red
+ {
+   color: red;
+ }
+ .yellow
+ {
+   color:#de9e36;
+ }
+ .blackBold
+ {
+     font-weight: bold;
+     color: black;
+ }
+
+ .name
+ {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+ }
+
+
+  ul
+  {
+   padding: 3px;
+   margin-left: 5px;
+  }
+ .rating-list li {
+   float: right;
+   color: #ddd;
+   padding: 10px 5px;
+ 
+ }
+ 
+ .rating-list li:hover,
+ .rating-list li:hover ~ li, .rating-list li.selected {
+   color: #ffd700;
+ }
+ 
+ .rating-list {
+   display: inline-block;
+   list-style: none;
+ }
+
+ ion-icon {
+   font-size: 20px;
+  
+ }

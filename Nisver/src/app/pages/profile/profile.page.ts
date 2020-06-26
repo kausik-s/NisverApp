@@ -21,7 +21,9 @@ import { google } from "google-maps";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  description:string;
   file: File;
+  bestWorkFile:File;
   userID:string;
   disabled:boolean;
   picToView:string;
@@ -29,6 +31,11 @@ export class ProfilePage implements OnInit {
   loaderToShow: any;
   isSubmitted = false;
   categoryList:any
+  autoAddressbyApi:any
+  currentAddressApi:any
+  existingCurrentAddress:any
+  test:any
+  enableOther:boolean
   /****geo location */
   public latitude: number;
   public longitude: number;
@@ -66,18 +73,7 @@ export class ProfilePage implements OnInit {
     })
     
 
-    this.commonService.getObject("userData").then((result) => {
-      console.log(result); 
-      this.userID=result['userid'];
-      this.picToView=result['user_profile'];
-      this.disabled=true;
-      console.log(result['user_profile']);
-      this.ionicForm.setValue({name:result['user_name'], mobileNo: result['user_mobile'],
-      altMobileNo:result['user_altmobile'],email:result['user_email'],category:result['user_category'],profession:result['user_proffesion'],
-      maritalStatus:result['user_marital_status'],gender:result['user_gender'],currentAddress:result['user_currentaddress'],autoAddress:result['user_autoaddress']});
     
-
-  } );
    
  
 
@@ -114,6 +110,8 @@ export class ProfilePage implements OnInit {
            return;
          }
          
+         this.currentAddressApi=autocomplete.getPlace().formatted_address;
+         console.log("place changed"+this.currentAddressApi);
          //set latitude, longitude and zoom
          this.latitude = place.geometry.location.lat();
          this.longitude = place.geometry.location.lng();
@@ -127,23 +125,80 @@ export class ProfilePage implements OnInit {
   submitForm() {
     
     this.isSubmitted = true;
-    if (!this.ionicForm.valid) {
-     
-     // this.commonService.showSuccess("Please provide all the required values");
-      this.postData();
-      console.log(this.ionicForm.value);
-      return false;
-    } else {
-      console.log(this.ionicForm.value);
-      this.postData();
-    }
-  }
 
+
+    if(this.ionicForm.get("name").hasError('required')||this.ionicForm.get("name").hasError('minLength')
+    ||this.ionicForm.get("mobileNo").hasError('required')||this.ionicForm.get("mobileNo").hasError('pattern')
+    ||this.ionicForm.get("mobileNo").hasError('minLength')||this.ionicForm.get("mobileNo").hasError('maxLength')
+    ||this.ionicForm.get("email").hasError('required')
+    ||this.ionicForm.get("email").hasError('pattern')
+    ||this.ionicForm.get("category").hasError('required')
+    ||this.ionicForm.get("maritalStatus").hasError('required') 
+    ||this.ionicForm.get("gender").hasError('required') 
+    )
+    {
+      console.log("form has error");
+      return;
+    }
+    else
+    {
+      //proceed to form submit
+     
+       
+      if(this.ionicForm.get('category').value==1&&this.ionicForm.get('profession').value=='')
+      {
+        this.commonService.showError("Please enter your profession");
+        return;
+      }
+        
+      //proceed to form submmit
+      this.postData();
+  }
+  }
   
  changeListener($event) : void {
     this.file = $event.target.files[0];
   }
 
+  filechangeListener($event) : void {
+    this.bestWorkFile = $event.target.files[0];
+  }
+  
+  addBestWork()
+  {
+    this.commonService.showLoader();
+    var formData: any = new FormData();
+    this.locate()
+    if(!this.description)
+    {
+      this.commonService.showError("Please enter descrription");
+      return;
+    }
+    
+    formData.append("userid", this.userID);
+    formData.append("description", this.description);
+    formData.append("location",this.autoAddressbyApi);
+    formData.append("image", this.bestWorkFile);
+    
+    this.commonService.showLoader();
+      this.apiservice.addbestwork(formData).subscribe((response) => {
+      console.log(response);
+      this.commonService.hideLoader();
+      
+      if(response['status']==1)
+      {
+        this.commonService.showSuccess(response['message']);
+       
+      }
+      else
+      {
+        this.commonService.showError(response['message']);
+      }
+
+
+    });
+   
+  }
 
   postData()
   {
@@ -158,8 +213,15 @@ export class ProfilePage implements OnInit {
     formData.append("profession", this.ionicForm.get('profession').value);
     formData.append("marital_status", this.ionicForm.get('maritalStatus').value);
     formData.append("gender", this.ionicForm.get('gender').value);
-    formData.append("currentaddress", this.ionicForm.get('currentAddress').value);
-    formData.append("autoaddress", this.ionicForm.get('autoAddress').value);
+    if(!this.currentAddressApi)
+    {
+      this.currentAddressApi=this.existingCurrentAddress;
+    }
+    formData.append("currentaddress", this.currentAddressApi);
+    formData.append("autoaddress", this.autoAddressbyApi);
+    //formData.append("latitude", this.latitude);
+    //formData.append("longitude", this.longitude);
+    
     formData.append("Image", this.file);
   
       this.apiservice.updateProfile(formData).subscribe((response) => {
@@ -184,6 +246,13 @@ export class ProfilePage implements OnInit {
   }
   
 
+  getBestWorkListing()
+  {
+    this.commonService.showLoader();
+    var formData: any = new FormData();
+    formData.append("userid", this.userID);
+
+  }
   
   enableEditMode()
   {
@@ -215,7 +284,72 @@ export class ProfilePage implements OnInit {
     this.apiservice.getCategoryList(null).subscribe((response) => {
      console.log(response);
      this.categoryList=response['CategoryList'];
+
+     this.commonService.getObject("userData").then((result) => {
+      console.log(result); 
+      this.userID=result['userid'];
+      this.picToView=result['user_profile'];
+      this.disabled=true;
+      console.log(result['user_profile']);
+   
+      console.log("category"+result['user_category']);
+      this.autoAddressbyApi=result['user_autoaddress'];
+      this.existingCurrentAddress=result['user_currentaddress'];
+      this.ionicForm.setValue({name:result['user_name'], mobileNo: result['user_mobile'],
+      altMobileNo:result['user_altmobile'],email:result['user_email'],category:result['user_category'],profession:result['user_proffesion'],
+      maritalStatus:result['user_marital_status'],gender:result['user_gender'],currentAddress:result['user_currentaddress'],autoAddress:result['user_autoaddress']});
+    
+
+  } );
+
     });
   }
+
+  selectCategory($event)
+    {
+      //for condition 1
+      if($event.target.value==1)
+      {
+          this.enableOther=true;
+      }
+      else
+      {
+        this.enableOther=false;
+      }
+       
+    }
+
+    locate()
+    {
+      //this.getCurrentPosition();
+      //reverse geo coding
+      var geocoder = new google.maps.Geocoder;
+      var latlng = {lat: this.latitude, lng:this.longitude};
+      var self = this;
+      geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === 'OK') {
+          if (results[0]) {
+            
+           self.ngZone.run(() => {
+
+              //console.log(results[0].formatted_address);
+              self.autoAddressbyApi=results[0].formatted_address;
+          
+           console.log("address"+self.autoAddressbyApi);
+            
+           });
+          
+
+           
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
+   
+
+    }
 
 }

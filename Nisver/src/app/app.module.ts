@@ -13,10 +13,13 @@ import { CommonService } from './services/common.service';//common serviec
 import { EnvService } from './services/env.service';
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,BarRatingModule,IonicRatingModule],
+  exports: [IonicRatingModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -27,5 +30,6 @@ import { ApiService } from './services/api.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
+ 
 })
 export class AppModule {}

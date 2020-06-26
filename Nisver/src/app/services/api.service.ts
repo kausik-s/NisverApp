@@ -169,5 +169,57 @@ handleError(error: HttpErrorResponse) {
   } 
 
 
+   //cancel Booking
+   cancelBooking(item) {
+    return this.http
+      .post(this.env.API_URL+'/cancel_my_booking_order.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
+
+  //complete order
+  completeOrder(item) {
+    return this.http
+      .post(this.env.API_URL+'/order_progress_to_complete.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
+
+   
+  //submitRatingForOrder
+  submitRatingForOrder(item) {
+    return this.http
+      .post(this.env.API_URL+'/give_complete_order_rating.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
+
+
+  //add-best work
+  addbestwork(item) {
+    return this.http
+      .post(this.env.API_URL+'/add_bestwork.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
+
+
+  //bestwork listing
+    bestworkListing(item) {
+    return this.http
+      .post(this.env.API_URL+'/my_bestwork_listing.php', item, {})
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  } 
 
 }

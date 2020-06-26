@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/home/vendorsearch"></ion-back-button>
     </ion-buttons>
     <ion-title>Booking</ion-title>
   </ion-toolbar>
@@ -10,10 +10,12 @@
 <ion-content>
 
   <ion-card>
+    <!--
     <ion-card-header>
      
       <ion-card-title>Vendor Details</ion-card-title>
     </ion-card-header>
+    -->
   
     <ion-card-content>
 
@@ -21,12 +23,24 @@
           <ion-img [src]="profileImg"></ion-img>
       </ion-avatar>
       
-      
+      <ion-item>
+        
+      </ion-item>
 
       <ion-grid>
         <ion-row>
+
+          <ion-col><div></div></ion-col>
+          <ion-col><div></div></ion-col>
+
+        </ion-row>
+        <ion-row>
+          <!--
           <ion-col><div>Name:</div></ion-col>
           <ion-col><div>{{name}}</div></ion-col>
+          -->
+        
+          <ion-col><div><span class="name">{{name}}</span></div></ion-col>
           
         </ion-row>
 
@@ -85,6 +99,11 @@
         <ion-row>
           <ion-col><div>Current Address:</div></ion-col>
           <ion-col><div>{{user_currentaddress}}</div></ion-col>
+          
+        </ion-row>
+        <ion-row>
+          <ion-col><div>Auto Address:</div></ion-col>
+          <ion-col><div>{{user_autoaddress}}</div></ion-col>
           
         </ion-row>
 

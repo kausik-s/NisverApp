@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CommonService } from 'src/app/services/common.service';
 import { ApiService } from 'src/app/services/api.service';
+import { NavController } from '@ionic/angular';
  
 
 
@@ -26,10 +27,11 @@ export class BookingPage implements OnInit {
   user_distance:string
   user_addedon:string
   user_currentaddress:string
+  user_autoaddress:string
   user_marital_status:string
   hidemobile:boolean
   constructor(private router:Router,private location:Location,private commonService:CommonService,
-    private apiService:ApiService) {
+    private apiService:ApiService,private navCtrl: NavController) {
     this.commonService.getObject("vendor").then((result) => {
       //console.log("vendor data"+JSON.stringify(result)); 
       //this.vendorData=result;
@@ -45,6 +47,7 @@ export class BookingPage implements OnInit {
       this.user_currentaddress=result['user_currentaddress']
       this.vendorid=result['customerid']
       this.user_marital_status=result['user_marital_status']
+      this.user_autoaddress=result['user_autoaddress']
       
       //HIDE MOBILE FOR FEMALE AND UNMARRIED VENDOR
       if(this.user_gender=='FEMALE'&&this.user_marital_status=='UNMARRIED')
@@ -70,7 +73,7 @@ export class BookingPage implements OnInit {
   submitBooking()
   {
     
-    if(this.comments=='')
+    if(!this.comments)
     {
       this.commonService.showError("Please insert your comments");
     }
@@ -88,6 +91,8 @@ export class BookingPage implements OnInit {
         if(response['status']==1)
         {
           this.commonService.showSuccess("Order booked sucessfully");
+          //this.router.navigate(['home/vendorsearch'])
+          this.navCtrl.navigateRoot('home/vendorsearch');
         }
         else
         {

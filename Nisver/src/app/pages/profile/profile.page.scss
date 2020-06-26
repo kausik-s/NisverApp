@@ -5,3 +5,8 @@
  {
      float:right;
  }
+
+ .mandatory:after {
+    content:" *";
+    color: red;
+  }

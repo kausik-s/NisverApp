@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/orderhistory"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-card>
+    <ion-card-header>
+     
+      <!--<ion-card-title>Order Details</ion-card-title>-->
+
+    <ion-avatar class='avatar' >
+        <ion-img [src]="orderObj.reciever_user_profile"></ion-img>
+    </ion-avatar>
+    
+
+    </ion-card-header>
+  
+    <ion-card-content>
+
+     
+      <ion-item>
+        
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col><div>ORDER DATE :<span class="red">{{orderObj.order_created_date}}</span></div></ion-col>
+          <!--<ion-col><div>{{name}}</div></ion-col>-->
+          
+        </ion-row>
+
+       
+          <ion-row>
+            <ion-col><div>CATEGORY(SKILL) :<span class="yellow">{{orderObj.receiver_category_name}}</span></div></ion-col>
+            <!--<ion-col><div>{{name}}</div></ion-col>-->
+            
+          </ion-row>
+
+          <ion-row>
+            <ion-col><div><span class="blackBold">ORDER STATUS :</span><span class="yellow">{{orderObj.order_status_new}}</span></div></ion-col>
+            <!--<ion-col><div>{{name}}</div></ion-col>-->
+            
+          </ion-row>
+          
+          <ion-row>
+          
+            <ion-col><div><span class="name">{{orderObj.reciever_name}}</span></div></ion-col>
+            
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col><div>Current Location :<span >{{orderObj.reciever_user_currentaddress}}</span></div></ion-col>
+            <!--<ion-col><div>{{name}}</div></ion-col>-->
+            
+          </ion-row>
+
+          <ion-row>
+            <ion-col><div>Auto Location :<span >{{orderObj.reciever_user_autoaddress}}</span></div></ion-col>
+            <!--<ion-col><div>{{name}}</div></ion-col>-->
+            
+          </ion-row>
+          <ion-row>
+            <ion-col><div>Email :<span >{{orderObj.reciever_user_email}}</span></div></ion-col>
+            <!--<ion-col><div>{{name}}</div></ion-col>-->
+            
+          </ion-row>
+          <ion-row>
+            <ion-col><div>MOBILE NO:<span >{{orderObj.reciever_user_mobile}},{{orderObj.reciever_user_altmobile}}</span></div></ion-col>
+            <!--<ion-col><div>{{name}}</div></ion-col>-->
+            
+          </ion-row>
+
+
+
+      <!--
+        <ion-row>
+          <ion-col><div>Mobile:</div></ion-col>
+          
+          
+          <ion-col *ngIf="hidemobile"><div>xxxxxxxxx</div></ion-col>
+          <ion-col *ngIf="!hidemobile"><div>{{user_mobile}}</div></ion-col>
+        
+          
+        </ion-row>
+         -->
+
+       
+
+      </ion-grid>
+
+
+      <span *ngIf="orderObj.order_status_new=='COMPLETED'">
+        <ul  class="list-inline rating-list" 
+        *ngFor="let star of stars" style="display: inline-block" >
+          <li (click)="countStar(star)"
+              [ngClass]="{'selected': (star <= selectedValue)}">
+            <!--<i class="fa fa-star"></i>-->
+            <ion-icon name="star-outline"></ion-icon>
+            
+          </li> 
+        </ul>
+      </span>
+  
+     <!-- <ion-button (click)="submitBooking()" type="button" expand="block">Book</ion-button>-->
+     <ion-button *ngIf="orderObj.order_status_new=='PROGRESS'"  (click)="proceedToComplete()" type="button" expand="block">Complete Order</ion-button>
+
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

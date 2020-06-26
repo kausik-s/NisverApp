@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-orderhistory',
@@ -13,17 +13,20 @@ export class OrderhistoryPage implements OnInit {
 orderStatus:any
 userID:any
 orderList:any
-constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController ){}
+constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController,private navCtrl: NavController ){}
   ngOnInit() {
 
 
      this.commonService.getObject("userData").then((result) => {
       console.log(result); 
       this.userID=result['userid'];
+      this.getOrderByStatus('ALL');
+      this.commonService.setObject("userid",this.userID);
      
 
   } );
 
+ 
     this.orderStatus=[
       {
         "key":"All",
@@ -47,6 +50,9 @@ constructor(private apiService:ApiService,private commonService:CommonService,pr
     
   }
 
+  ionViewWillEnter() {
+   console.log("entered in the view")
+}
 
   selectStatus($event)
   {
@@ -56,6 +62,7 @@ constructor(private apiService:ApiService,private commonService:CommonService,pr
 
   getOrderByStatus(status)
   {
+    this.orderList=[];//clearing the previous data
       this.commonService.showLoader();
       var formData: any = new FormData();
       formData.append("customerid",this.userID );
@@ -81,6 +88,14 @@ constructor(private apiService:ApiService,private commonService:CommonService,pr
   
   
       });
+  }
+
+  gotoOrderDetail(item)
+  {
+    console.log(JSON.stringify(item));
+    this.commonService.setObject("order",item);
+    //this.router.navigateByUrl('home/orderhistdetails');
+    this.navCtrl.navigateRoot('home/orderhistdetails');
   }
 
 }

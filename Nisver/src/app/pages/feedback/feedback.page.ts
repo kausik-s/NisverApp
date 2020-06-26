@@ -15,6 +15,9 @@ const { Storage } = Plugins;
 export class FeedbackPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
+  stars: number[] = [1, 2, 3, 4, 5];
+  selectedValue: number;
+  userID:any;
 
   constructor(private router:Router,public formBuilder: FormBuilder,private commonService:CommonService,private apiService:ApiService) { }
 
@@ -24,6 +27,14 @@ export class FeedbackPage implements OnInit {
       comments: ['', [Validators.required, Validators.maxLength(255)]]
      
     })
+
+    this.commonService.getObject("userData").then((result) => {
+      
+      this.userID=result['userid'];
+     
+     
+
+  } );
   }
 
   submitFeedback()
@@ -33,19 +44,26 @@ export class FeedbackPage implements OnInit {
       this.commonService.showError("Please provide valid data");
       return;
     }
+    if(!this.selectedValue)
+    {
+      this.commonService.showError("Please select rating between 1 to 5");
+      return;
+    }
     this.isSubmitted=true;
     this.commonService.showLoader();
     var formData: any = new FormData();
     formData.append("feedback", this.ionicForm.get('comments').value);
-    let userData=this.getObject("userData");
-    formData.append("userid",userData['userid']);
+    formData.append("userid",this.userID);
+    formData.append("rating",this.selectedValue);
+    formData.append("customerid",0);
+
     this.apiService.addFeedback(formData).subscribe((response) => {
       console.log(response);
       this.commonService.hideLoader();
       
       if(response['status']==1)
       {
-        this.commonService.showSuccess("Feedback submitted successfully");
+        this.commonService.showSuccess(response['message']);
         if(localStorage.getItem("user_type")=="ADMIN")
          this.router.navigate(['/dashboard'])
          else
@@ -74,6 +92,13 @@ export class FeedbackPage implements OnInit {
   async getObject(key:string) {
     const item = await Storage.get({ key: key });
     return JSON.parse(item.value);
+  }
+
+  
+  countStar(star) {
+    this.selectedValue = star;
+    console.log('Value of star', star);
+    
   }
 
 }

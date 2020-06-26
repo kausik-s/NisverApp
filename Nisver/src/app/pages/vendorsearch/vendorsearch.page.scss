@@ -20,3 +20,30 @@ ion-content{
     --ion-background-color:#111D12;
 }
 ***/
+
+.searchBttn
+{
+    width:50%;
+    margin-left: 20%;
+}
+ion-row
+{
+    height:20px;
+}
+
+.name
+{
+    font-weight: bold;
+    font-size: 20px;
+    
+}
+
+div
+{
+    font-size: 12px;
+}
+
+.mandatory:after {
+    content:" *";
+    color: red;
+  }

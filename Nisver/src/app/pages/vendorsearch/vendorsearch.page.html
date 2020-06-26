@@ -11,7 +11,7 @@
 
   <ion-toolbar>
     <ion-item>
-      <ion-label >Category</ion-label>
+      <ion-label >Profession(my skill)</ion-label>
       <ion-select (ionChange)="selectCategory($event)" interface="popover" placeholder="Select One">
         <ion-select-option  *ngFor="let category of categoryList"   [value]="category.categoryid">{{category.cat_name}}</ion-select-option>
      
@@ -24,9 +24,11 @@
     
     <!--<ion-input id="txtHome" formControlName="autoAddress" type="text"> </ion-input>-->
     </ion-item>
+  
 
   </ion-toolbar>
- 
+   <ion-button  class="searchBttn" (click)="searchVendor()" type="button">Search</ion-button>
+   <!--<ion-button color="success">Success</ion-button>-->
   
 
 <ion-scroll scrollY="true">
@@ -42,7 +44,7 @@
             </ion-avatar>
             
             <ion-label>
-              
+              <!--
               <ion-grid>
                 <ion-row>
                   <ion-col><div>Name:</div></ion-col>
@@ -51,7 +53,7 @@
                 </ion-row>
 
                 <ion-row>
-                  <ion-col><div>Category:</div></ion-col>
+                  <ion-col><div>Profession(my skill):</div></ion-col>
                   <ion-col><div>{{vendor.user_proffesion}}</div></ion-col>
                   
                 </ion-row>
@@ -66,6 +68,42 @@
                   
                 </ion-row>
               </ion-grid>
+            -->
+            <ion-grid>
+              <ion-row>
+               
+                <ion-col><div class='name'>{{vendor.user_name}}</div></ion-col>
+                
+              </ion-row>
+              
+              <!--
+              <ion-row>
+                <ion-col><div>Order Category:</div></ion-col>
+                <ion-col><div>{{order.receiver_category_name}}</div></ion-col>
+                
+              </ion-row>
+              -->
+              <ion-row>
+                <ion-col><div>Profession(my skill):</div></ion-col>
+                <ion-col><div>{{vendor.user_proffesion}}</div></ion-col>
+                
+              </ion-row>
+
+              <ion-row>
+                <ion-col><div>Mobile:</div></ion-col>
+                <ion-col><div>{{vendor.user_mobile}}</div></ion-col>
+                
+              </ion-row>
+              
+              <!--
+              <ion-row>
+                <ion-col><div>Comments:</div></ion-col>
+                <ion-col><div>{{order.orders_comments}}</div></ion-col>
+                
+              </ion-row>
+              -->
+            </ion-grid>
+          
             
             </ion-label>
           </ion-item>

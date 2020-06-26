@@ -17,9 +17,20 @@
       
       <form [formGroup]="ionicForm" (ngSubmit)="submitFeedback()" novalidate>
 
+
+        <ul  class="list-inline rating-list" 
+        *ngFor="let star of stars" style="display: inline-block" >
+          <li (click)="countStar(star)"
+              [ngClass]="{'selected': (star <= selectedValue)}">
+            <!--<i class="fa fa-star"></i>-->
+            <ion-icon name="star-outline"></ion-icon>
+            
+          </li> 
+        </ul>
+
         <ion-item >
           <!--<ion-label position="floating" class="mandatory">Comments</ion-label>-->
-          <ion-textarea (change)="trackValueChange()" formControlName="comments" placeholder="Enter your Feedback here..."></ion-textarea>
+          <ion-textarea (change)="trackValueChange()" formControlName="comments" placeholder="Enter your comments here..."></ion-textarea>
         </ion-item>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.comments.errors?.required">
          Comments cannot be empty.

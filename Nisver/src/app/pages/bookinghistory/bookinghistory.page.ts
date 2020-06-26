@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import {  NavController } from '@ionic/angular';
 
 
 @Component({
@@ -15,12 +16,13 @@ export class BookinghistoryPage implements OnInit {
   userID:any
   bookingList:any
 
-  constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController ){}
+  constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController,private navCtrl: NavController ){}
   ngOnInit() {
 
     this.commonService.getObject("userData").then((result) => {
       console.log(result); 
       this.userID=result['userid'];
+      this.getBookingrByStatus("ALL");//initialy load all data
      
 
   } );
@@ -61,10 +63,11 @@ export class BookinghistoryPage implements OnInit {
 
   getBookingrByStatus(status)
   {
+      this.bookingList=[];//clearing the data
       this.commonService.showLoader();
       var formData: any = new FormData();
-     // formData.append("customerid",this.userID );
-      formData.append("customerid","14");
+      formData.append("customerid",this.userID );
+      //formData.append("customerid","14");
 
       formData.append("status",status);
      this.apiService.fetchBookingList(formData).subscribe((response) => {
@@ -78,6 +81,7 @@ export class BookinghistoryPage implements OnInit {
           this.commonService.showSuccess("Booking Retrived successfully");
           
           
+          
         }
         else
         {
@@ -86,6 +90,14 @@ export class BookinghistoryPage implements OnInit {
   
   
       });
+  }
+
+  gotoBookingDetail(item)
+  {
+    console.log(JSON.stringify(item));
+    this.commonService.setObject("booking",item);
+    //this.router.navigateByUrl('home/bookinghistdetail');
+    this.navCtrl.navigateRoot('home/bookinghistdetail');
   }
 
 }

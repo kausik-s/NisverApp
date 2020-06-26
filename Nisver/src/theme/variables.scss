@@ -74,6 +74,8 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+ 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -225,10 +227,14 @@
 
     --ion-tab-bar-background: #1f1f1f;
   }
+
+  
 }
 
 
 /*****custom styling******/
+
+
 .center
 {
   text-align: center;
@@ -247,10 +253,13 @@ ion-button {
   --background: linear-gradient(90deg, rgba(140,96,221,1) 40%, rgba(53,150,181,1) 93%);
  
 }
+
+/*
 .md {
   --ion-text-color: rgb(19, 106, 146);
   --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
 }
+*/
 
 ion-tab-bar
 {
@@ -272,5 +281,11 @@ ion-tab-button {
   --color-focused: red;
 }
 
-
+ion-item
+{
+  --detail-icon-color:#23bdd1;
+  --detail-icon-opacity: 1;
+  --color-hover:#23bdd1;
+  --background-focused:#23bdd1;
+}
   

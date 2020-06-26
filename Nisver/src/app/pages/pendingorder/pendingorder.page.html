@@ -5,9 +5,22 @@
       
     </ion-buttons>
     <ion-title>Pending Orders</ion-title>
+    
+    
+    
     <ion-buttons slot="end">
       <ion-icon name="notifications"></ion-icon>
+       <!--<ion-badge color="secondary" slot="start">10</ion-badge>-->
     </ion-buttons>
+  
+  
+  <!--  
+  <ion-button class="badge-button" routerLink="/notifications/" routerDirection="forward">
+    <ion-icon size="large" name="notifications-circle-outline">
+    </ion-icon>
+    <ion-badge [class.badge-one]="unread < 10" [class.badge-two]="unread >= 10" color="danger">{{ unread }}</ion-badge>
+  </ion-button>
+    -->
     
   </ion-toolbar>
   
@@ -15,6 +28,71 @@
 
 <ion-content>
 
+<!-----home page content-->
+<ion-item *ngFor="let order of orderList"  (click)="gotoOrderDetail(order)" detail >
+  <ion-list>
+   
+
+    <ion-item lines="none">
+
+      
+      <ion-avatar slot="start">
+        <img src="{{order.reciever_user_profile}}">
+      </ion-avatar>
+      
+      <ion-label class='label'>
+        
+        <ion-grid>
+          <ion-row>
+           
+            <ion-col><div class='name'>{{order.sender_name}}</div></ion-col>
+            
+          </ion-row>
+          
+          <!--
+          <ion-row>
+            <ion-col><div>Order Category:</div></ion-col>
+            <ion-col><div>{{order.receiver_category_name}}</div></ion-col>
+            
+          </ion-row>
+          -->
+          <ion-row>
+            <ion-col><div>Order Status:</div></ion-col>
+            <ion-col><div>{{order.order_status_new}}</div></ion-col>
+            
+          </ion-row>
+          <ion-row>
+            <ion-col><div>Order Date:</div></ion-col>
+            <ion-col><div>{{order.order_created_date}}</div></ion-col>
+            
+          </ion-row>
+          
+          <!--
+          <ion-row>
+            <ion-col><div>Comments:</div></ion-col>
+            <ion-col><div>{{order.orders_comments}}</div></ion-col>
+            
+          </ion-row>
+          -->
+        </ion-grid>
+      
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+</ion-item>
+
+
+
+
+<!----page content-->
+
+
+
+
+
+<!--
   <ion-card *ngFor="let order of orderList"  color="primary" class="background"> 
 
     <ion-item lines="none">
@@ -89,7 +167,7 @@
 
     
   </ion-card>
-
+-->
 
 
 </ion-content>

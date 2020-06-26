@@ -6,14 +6,16 @@
     <ion-title>Sign Up</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-scroll scrollY="true">
 <ion-content>
-  <ion-scroll scrollY="true">
+  
  
-  <ion-card id="signUpCard">
+  <ion-card >
+    
     <ion-card-header class="center">
       CREATE ACCOUNT
     </ion-card-header>
+    
     <ion-card-content>
       
       <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
@@ -159,36 +161,39 @@
           Please type your address
         </span>
        
-        <ion-item lines="none">
-          <ion-label slot="start" position="stacked" >Find my current location</ion-label>
+        <ion-item lines='none'>
+          <ion-label slot="start" position="stacked" >Find current location</ion-label>
 
           <ion-label slot="end" ><ion-icon class="locator" (click)='locate()'name="locate-outline"></ion-icon></ion-label>
           
-          
+         
           <!--<ion-input [ng-bind]="autoAddressbyApi" formControlName="autoAddress" type="text"> </ion-input>-->
         </ion-item>
-
+        
+      
         <ion-item>
-          <ion-label [innerHtml]='autoAddressbyApi' position="stacked" ></ion-label>
+ 
+         <ion-label [innerHtml]='autoAddressbyApi' position="stacked" ></ion-label>
 
         </ion-item>
-        
+      
         <ion-button type="submit" expand="block">Sign Up</ion-button>
 
-  
+        <ion-item lines="none">
+          <p text-wrap>
+            Already have an account ?&nbsp;&nbsp;<a routerLink="/login">Sign In</a>
+          </p>
+        </ion-item>
         
       </form>
       
       
     
-      <ion-item lines="none">
-        <p text-wrap>
-          Already have an account ?&nbsp;&nbsp;<a routerLink="/login">Sign In</a>
-        </p>
-      </ion-item>
+      
     </ion-card-content>
   </ion-card>
-</ion-scroll>
- 
+
 
 </ion-content>
+</ion-scroll>
+ 

@@ -36,4 +36,8 @@ ion-toolbar{
     margin-top: 10px;
 
   }
-  
+ 
+  ion-content
+  {
+      max-height: 90%;
+  }

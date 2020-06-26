@@ -21,7 +21,7 @@
       <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
 
         <ion-item >
-          <ion-label position="floating" class="mandatory">Name</ion-label>
+          <ion-label position="floating" class="mandatory">Full Name</ion-label>
           <ion-input [disabled]="disabled" formControlName="name" type="text"> </ion-input>
         </ion-item>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
@@ -36,35 +36,43 @@
           <ion-input [disabled]="true" formControlName="mobileNo" type="tel" maxlength="10"> </ion-input>
         </ion-item>
 
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobileNo.errors?.required">
+          Please enter mobile number
+        </span>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.mobileNo.errors?.minlength">
           Please enter valid mobile number
         </span>
 
        
        
-        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
-          Password must be atleast 4 charecter
-        </span>
-        
 
         <ion-item>
-          <ion-label position="stacked" class="mandatory">Alternate Mobile Number</ion-label>
+          <ion-label position="stacked" class="mandatory">Alt Mobile</ion-label>
           <ion-input [disabled]="disabled" formControlName="altMobileNo" type="tel" maxlength="10"> </ion-input>
         </ion-item>
 
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.altMobileNo.errors?.required">
+          Please enter alteranet mobile number
+        </span>
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.altMobileNo.errors?.minlength">
           Please enter valid mobile number
         </span>
 
         <ion-item>
           <ion-label position="stacked" class="mandatory">Email</ion-label>
-          <ion-input [disabled]="disabled" formControlName="email" type="email"> </ion-input>
+          <ion-input [disabled]="true" formControlName="email" type="email"> </ion-input>
         </ion-item>
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+          Please enter your Email id.
+        </span>
 
         <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
           Please enter valid Email Id
         </span>
 
+
+        <!--
         <ion-item>
           <ion-label position="stacked" class="mandatory">Category</ion-label>
           
@@ -74,15 +82,38 @@
            
           </ion-select>
         </ion-item>
+      -->
+      <ion-item>
+        <ion-label position="stacked" class="mandatory">Profession (My Skill)</ion-label>
+        <ion-select [disabled]="disabled" (ionChange)="selectCategory($event)" formControlName="category" placeholder="Select One">
+          <ion-select-option  *ngFor="let category of categoryList"   [value]="category.categoryid">{{category.cat_name}}</ion-select-option>
+       
+        </ion-select>
+       
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="stacked" class="mandatory">Skill</ion-label>
-          <ion-select [disabled]="disabled" formControlName="profession" placeholder="Select One">
-            <ion-select-option value="Student">Student</ion-select-option>
-            <ion-select-option value="Faculty">Faculty</ion-select-option>
-            <ion-select-option value="OtherProfession">Other</ion-select-option>
-          </ion-select>
-        </ion-item>
+
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.category.errors?.required">
+        Please select profession
+      </span>
+
+      <ion-item *ngIf="enableOther">
+        <ion-label position="stacked" class="mandatory">Enter Your Skill</ion-label>
+        <ion-input formControlName="profession" type="email"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="mandatory">Gender</ion-label>
+        <ion-select [disabled]="disabled" formControlName="gender" placeholder="Select One">
+          <ion-select-option value="FEMALE">Female</ion-select-option>
+          <ion-select-option value="MALE">Male</ion-select-option>
+          
+        </ion-select>
+      </ion-item>
+
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.gender.errors?.required">
+        Please select gender
+      </span>
 
         <ion-item>
           <ion-label  position="stacked" class="mandatory">Marital Status</ion-label>
@@ -92,28 +123,49 @@
           </ion-select>
         </ion-item>
 
-        <ion-item>
-          <ion-label position="stacked" class="mandatory">Gender</ion-label>
-          <ion-select [disabled]="disabled" formControlName="gender" placeholder="Select One">
-            <ion-select-option value="FEMALE">Female</ion-select-option>
-            <ion-select-option value="MALE">Male</ion-select-option>
-            
-          </ion-select>
-        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.maritalStatus.errors?.required">
+          Please select Marital status
+        </span>
+
+       
         <ion-item >
           <ion-label position="stacked" class="mandatory">Current Address</ion-label>
-          <ion-input [disabled]="disabled" formControlName="currentAddress" type="text"> </ion-input>
+           
+          <ion-input [disabled]="disabled" id="txtHome" [(ngModel)]="test"  [formControl]="searchControl" formControlName="currentAddress" type="text"> </ion-input>
+        
+        <!--<ion-input id="txtHome" formControlName="autoAddress" type="text"> </ion-input>-->
         </ion-item>
+
+
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.currentAddress.errors?.required">
+          Please type your address
+        </span>
         
-        
-       
+       <!--
         <ion-item >
           <ion-label position="stacked" class="mandatory">Auto Address</ion-label>
            
           <ion-input id="txtHome" [disabled]="disabled"  [formControl]="searchControl" formControlName="autoAddress" type="text"> </ion-input>
         
-        <!--<ion-input id="txtHome" formControlName="autoAddress" type="text"> </ion-input>-->
+        <ion-input id="txtHome" formControlName="autoAddress" type="text"> </ion-input>
         </ion-item>
+      -->
+
+      <ion-item [disabled]="disabled" lines="none">
+
+        <ion-label [disabled]="disabled" slot="start" position="stacked" >Find my current location</ion-label>
+
+        <ion-label [disabled]="disabled" slot="end" ><ion-icon class="locator" (click)='locate()'name="locate-outline"></ion-icon></ion-label>
+        
+        
+        <!--<ion-input [ng-bind]="autoAddressbyApi" formControlName="autoAddress" type="text"> </ion-input>-->
+      </ion-item >
+
+      <ion-item [disabled]="disabled">
+        <ion-label [innerHtml]='autoAddressbyApi' position="stacked" ></ion-label>
+
+      </ion-item>
+      
 
         <ion-item>
           <ion-label id="profile_image" color="primary" stacked>Image</ion-label>
@@ -127,8 +179,28 @@
         
       </form>
       
-      
     
+
+     <!--
+      <span>
+        <ion-item >
+         <ion-label >Add Best work</ion-label>
+          
+        </ion-item>
+  
+        <ion-item >
+        
+        <ion-textarea [(ngModel)]='description'  placeholder="Enter your work description"></ion-textarea>
+      </ion-item>
+
+        <ion-item>
+          <ion-label id="profile_image1" color="primary" stacked>Image</ion-label>
+          <ion-input  type="file" accept="image/*" (change)="filechangeListener($event)" ></ion-input>
+        </ion-item>
+         
+        <ion-button (click)="addBestWork()" type="button" expand="block">ADD</ion-button>
+      </span>
+    -->
     </ion-card-content>
   </ion-card>
 

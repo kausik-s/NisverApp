@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonService } from '../../services/common.service';//common serviec
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pendingorder',
@@ -12,7 +12,7 @@ import { MenuController } from '@ionic/angular';
 export class PendingorderPage implements OnInit {
   userID:any
   orderList:any
-  constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController ) { 
+  constructor(private apiService:ApiService,private commonService:CommonService,private router:Router,private menu:MenuController ,private navCtrl: NavController) { 
     
     this.menu.enable(true, 'first');
     
@@ -33,8 +33,8 @@ export class PendingorderPage implements OnInit {
   {
       this.commonService.showLoader();
       var formData: any = new FormData();
-      //formData.append("customerid",this.userID );
-      formData.append("customerid","14");
+      formData.append("customerid",this.userID );
+      //formData.append("customerid","14");
 
       formData.append("status","PENDING");
      this.apiService.getOrdersList(formData).subscribe((response) => {
@@ -118,5 +118,12 @@ export class PendingorderPage implements OnInit {
 
   }
 
+  gotoOrderDetail(item)
+  {
+    console.log(JSON.stringify(item));
+    this.commonService.setObject("order",item);
+    //this.router.navigateByUrl('home/pendingorderdetail');
+    this.navCtrl.navigateRoot('home/pendingorderdetail');
+  }
 
 }

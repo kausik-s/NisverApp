@@ -11,7 +11,7 @@
   
   <ion-item>
     <ion-label >Booking Status</ion-label>
-    <ion-select (ionChange)="selectStatus($event)" interface="popover" placeholder="Select One">
+    <ion-select  value="ALL" (ionChange)="selectStatus($event)" interface="popover" placeholder="Select One">
       <ion-select-option  *ngFor="let booking of bookingStatus"   [value]="booking.value">{{booking.key}}</ion-select-option>
    
     </ion-select>
@@ -19,7 +19,7 @@
 
 
   <!-----home page content-->
-  <ion-item *ngFor="let booking of bookingList" >
+  <ion-item *ngFor="let booking of bookingList" (click)="gotoBookingDetail(booking)" detail>
     <ion-list>
      
 
@@ -34,26 +34,23 @@
           
           <ion-grid>
             <ion-row>
-              <ion-col><div>Vendor Name:</div></ion-col>
-              <ion-col><div>{{booking.reciever_name}}</div></ion-col>
+
+              <ion-col><div class='name'>{{booking.sender_name}}</div></ion-col>
+             
+            </ion-row>
+
+            <ion-row>
+              <ion-col><div>Profession(my skill):</div></ion-col>
+              <ion-col><div>{{booking.sender_category_name}}</div></ion-col>
               
             </ion-row>
 
             <ion-row>
-              <ion-col><div>Booking Category:</div></ion-col>
-              <ion-col><div>{{booking.receiver_category_name}}</div></ion-col>
+              <ion-col><div>Mobile No:</div></ion-col>
+              <ion-col><div>{{booking.sender_user_mobile}}</div></ion-col>
               
             </ion-row>
-            <ion-row>
-              <ion-col><div>Booking Status:</div></ion-col>
-              <ion-col><div>{{booking.order_status}}</div></ion-col>
-              
-            </ion-row>
-            <ion-row>
-              <ion-col><div>Booking Date:</div></ion-col>
-              <ion-col><div>{{booking.order_created_date}}</div></ion-col>
-              
-            </ion-row>
+            
             <!--
             <ion-row>
               <ion-col><div>Comments:</div></ion-col>
@@ -61,6 +58,7 @@
               
             </ion-row>
             -->
+            
           </ion-grid>
         
         </ion-label>
